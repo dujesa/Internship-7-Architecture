@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PointOfSaleApp.Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,6 +11,7 @@ namespace PointOfSaleApp.Data.Entities.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int AvailableQuantity { get; set; }
+        public OfferType OfferType { get; set; }
 
         public ICollection<Article> Articles { get; set; }
         public ICollection<Service> Services { get; set; }

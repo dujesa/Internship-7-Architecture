@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PointOfSaleApp.Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +10,7 @@ namespace PointOfSaleApp.Data.Entities.Models
         public int Id { get; set; }
         public DateTime IssuedAt { get; set; }
         public decimal Price { get; set; }
+        public BillType BillType { get; set; }
 
         public ICollection<OneOffBill> OneOffBills { get; set; }
         public ICollection<ServiceBill> ServiceBills { get; set; }
