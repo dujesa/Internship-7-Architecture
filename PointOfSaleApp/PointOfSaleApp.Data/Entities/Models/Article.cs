@@ -9,8 +9,8 @@ namespace PointOfSaleApp.Data.Entities.Models
         public int Id { get; set; }
         public decimal Price { get; set; }
 
-        public int ArticleOfferId { get; set; }
-        public Offer ArticleOffer { get; set; }
+        public int OfferId { get; set; }
+        public Offer Offer { get; set; }
 
         public Article()
         {
