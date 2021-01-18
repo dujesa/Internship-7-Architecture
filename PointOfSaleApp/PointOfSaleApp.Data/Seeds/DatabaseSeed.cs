@@ -102,7 +102,7 @@ namespace PointOfSaleApp.Data.Seeds
                     new Article
                     {
                         Id = 1,
-                        ArticleOfferId = 1,
+                        OfferId = 1,
                         Price = 99.99m
                     }
                 });
@@ -113,7 +113,7 @@ namespace PointOfSaleApp.Data.Seeds
                     new Service
                     {
                         Id = 1,
-                        ServiceOfferId = 2,
+                        OfferId = 2,
                         PricePerHour = 9.99m,
                         WorkingHoursNeeded = 2
                     }
@@ -126,7 +126,7 @@ namespace PointOfSaleApp.Data.Seeds
                     {
                         Id = 1,
                         PricePerDay = 99.99m,
-                        SubscriptionOfferId = 3
+                        OfferId = 3
                     }
                 });
 

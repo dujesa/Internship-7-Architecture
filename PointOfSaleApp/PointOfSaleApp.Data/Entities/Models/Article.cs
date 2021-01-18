@@ -18,8 +18,8 @@ namespace PointOfSaleApp.Data.Entities.Models
 
         public Article(Offer offer)
         {
-            ArticleOfferId = offer.Id;
-            ArticleOffer = offer;
+            OfferId = offer.Id;
+            Offer = offer;
         }
     }
 }

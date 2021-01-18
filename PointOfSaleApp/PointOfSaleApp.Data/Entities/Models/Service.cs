@@ -19,8 +19,8 @@ namespace PointOfSaleApp.Data.Entities.Models
 
         public Service(Offer offer)
         {
-            ServiceOfferId = offer.Id;
-            ServiceOffer = offer;
+            OfferId = offer.Id;
+            Offer = offer;
         }
     }
 }
