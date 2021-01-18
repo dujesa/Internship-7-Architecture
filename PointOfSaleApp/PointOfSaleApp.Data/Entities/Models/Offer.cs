@@ -13,14 +13,9 @@ namespace PointOfSaleApp.Data.Entities.Models
         public int AvailableQuantity { get; set; }
         public OfferType OfferType { get; set; }
 
-        public int? ArticleId { get; set; }
-        public Article Article { get; set; }
-
-        public int? ServiceId { get; set; }
-        public Service Service { get; set; }
-
-        public int? SubscriptionId { get; set; }
-        public Subscription Subscription { get; set; }
+        public ICollection<Article> Articles { get; set; }
+        public ICollection<Service> Services { get; set; }
+        public ICollection<Subscription> Subscriptions { get; set; }
 
         public /*virtual*/ ICollection<OfferCategory> OfferCategories { get; set; }
     }

@@ -42,18 +42,14 @@ namespace PointOfSaleApp.Data.Seeds
                         Id = 1,
                         PIN = "12345",
                         FirstName = "Mladen",
-                        LastName = "Mladenović",
-                        CustomerId = 1,
-                        EmployeeId = null
+                        LastName = "Mladenović"
                     },
                     new User
                     {
                         Id = 2,
                         PIN = "23456",
                         FirstName = "Pero",
-                        LastName = "Perić",
-                        CustomerId = null,
-                        EmployeeId = 1
+                        LastName = "Perić"
                     },
                 });
 
@@ -138,40 +134,28 @@ namespace PointOfSaleApp.Data.Seeds
                         Id = 1,
                         BillType = BillType.OneOffBill,
                         IssuedAt = DateTime.Now,
-                        Price = 199.99m,
-                        OneOffBillId = 1,
-                        ServiceBillId = null,
-                        SubscriptionBillId = null
+                        Price = 199.99m
                     },
                     new Bill
                     {
                         Id = 2,
                         BillType = BillType.OneOffBill,
                         IssuedAt = DateTime.Now,
-                        Price = 14.99m,
-                        OneOffBillId = 2,
-                        ServiceBillId = null,
-                        SubscriptionBillId = null
+                        Price = 14.99m
                     },
                     new Bill
                     {
                         Id = 3,
                         BillType = BillType.ServiceBill,
                         IssuedAt = DateTime.Now,
-                        Price = 99.99m,
-                        OneOffBillId = null,
-                        ServiceBillId = 1,
-                        SubscriptionBillId = null
+                        Price = 99.99m
                     },
                     new Bill
                     {
                         Id = 4,
                         BillType = BillType.SubscriptionBill,
                         IssuedAt = DateTime.Now,
-                        Price = 100.59m,
-                        OneOffBillId = null,
-                        ServiceBillId = null,
-                        SubscriptionBillId = 1
+                        Price = 100.59m
                     },
                 });
 

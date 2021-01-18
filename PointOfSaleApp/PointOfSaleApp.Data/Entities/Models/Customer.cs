@@ -22,6 +22,8 @@ namespace PointOfSaleApp.Data.Entities.Models
         {
             UserId = user.Id;
             User = user;
+
+            //User.Customers.Add(this);
         }
     }
 }
