@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using PointOfSaleApp.Data.Entities.Models;
+using PointOfSaleApp.Data.Seeds;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,8 +32,9 @@ namespace PointOfSaleApp.Data.Entities
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        { 
-            //todo: Seed data
+        {
+            DatabaseSeed.Seed(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
     }
 
@@ -48,7 +50,7 @@ namespace PointOfSaleApp.Data.Entities
             configuration
                 .Providers
                 .First()
-                .TryGet("connectionStrings:add:PointOfSaleDb:connectionString", out var connectionString);
+                .TryGet("connectionStrings:add:PointOfSale:connectionString", out var connectionString);
 
             var options = new DbContextOptionsBuilder<PointOfSaleDbContext>().UseSqlServer(connectionString).Options;
 

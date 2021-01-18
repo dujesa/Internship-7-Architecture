@@ -21,6 +21,7 @@ namespace PointOfSaleApp.Data.Entities.Models
 
         public Employee(User user)
         {
+            UserId = user.Id;
             User = user;
         }
     }

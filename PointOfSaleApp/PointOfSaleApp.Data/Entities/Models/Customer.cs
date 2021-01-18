@@ -20,6 +20,7 @@ namespace PointOfSaleApp.Data.Entities.Models
 
         public Customer(User user)
         {
+            UserId = user.Id;
             User = user;
         }
     }

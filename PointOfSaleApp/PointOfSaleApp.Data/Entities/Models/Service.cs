@@ -10,8 +10,8 @@ namespace PointOfSaleApp.Data.Entities.Models
         public decimal PricePerHour { get; set; }
         public int WorkingHoursNeeded { get; set; }
 
-        public int OfferId { get; set; }
-        public Offer Offer { get; set; }
+        public int ServiceOfferId { get; set; }
+        public Offer ServiceOffer { get; set; }
 
         public Service()
         {
@@ -19,7 +19,8 @@ namespace PointOfSaleApp.Data.Entities.Models
 
         public Service(Offer offer)
         {
-            Offer = offer;
+            ServiceOfferId = offer.Id;
+            ServiceOffer = offer;
         }
     }
 }

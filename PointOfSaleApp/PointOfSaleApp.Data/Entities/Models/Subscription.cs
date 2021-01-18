@@ -9,8 +9,8 @@ namespace PointOfSaleApp.Data.Entities.Models
         public int Id { get; set; }
         public decimal PricePerDay { get; set; }
 
-        public int OfferId { get; set; }
-        public Offer Offer { get; set; }
+        public int SubscriptionOfferId { get; set; }
+        public Offer SubscriptionOffer { get; set; }
 
         public Subscription()
         {
@@ -18,7 +18,8 @@ namespace PointOfSaleApp.Data.Entities.Models
 
         public Subscription(Offer offer)
         {
-            Offer = offer;
+            SubscriptionOfferId = offer.Id;
+            SubscriptionOffer = offer;
         }
     }
 }

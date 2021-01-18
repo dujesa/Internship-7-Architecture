@@ -12,9 +12,15 @@ namespace PointOfSaleApp.Data.Entities.Models
         public decimal Price { get; set; }
         public BillType BillType { get; set; }
 
-        public ICollection<OneOffBill> OneOffBills { get; set; }
-        public ICollection<ServiceBill> ServiceBills { get; set; }
-        public ICollection<SubscriptionBill> SubscriptionBills { get; set; }
+        public int? OneOffBillId { get; set; }
+        public OneOffBill OneOffBill { get; set; }
+
+        public int? ServiceBillId { get; set; }
+        public ServiceBill ServiceBill { get; set; }
+
+        public int? SubscriptionBillId { get; set; }
+        public SubscriptionBill SubscriptionBill { get; set; }
+
         public ICollection<BillItem> BillItems { get; set; }
     }
 }

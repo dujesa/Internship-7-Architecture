@@ -11,7 +11,10 @@ namespace PointOfSaleApp.Data.Entities.Models
         public string LastName { get; set; }
         public string PIN { get; set; }
 
-        public ICollection<Customer> Customers { get; set; }
-        public ICollection<Employee> Employees { get; set; }
+        public int? CustomerId { get; set; }
+        public Customer Customer { get; set; }
+
+        public int? EmployeeId { get; set; }
+        public Employee Employee { get; set; }
     }
 }
