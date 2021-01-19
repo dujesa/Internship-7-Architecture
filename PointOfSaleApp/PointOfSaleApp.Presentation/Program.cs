@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PointOfSaleApp.Presentation.Extensions;
+using PointOfSaleApp.Presentation.Factories;
+using System;
 
 namespace PointOfSaleApp.Presentation
 {
@@ -6,7 +8,8 @@ namespace PointOfSaleApp.Presentation
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var mainMenuActions = MainMenuFactory.GetMainMenuActions();
+            mainMenuActions.PrintActionsAndCall();
         }
     }
 }
