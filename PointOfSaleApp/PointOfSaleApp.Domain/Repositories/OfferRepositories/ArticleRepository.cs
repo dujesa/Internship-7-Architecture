@@ -30,7 +30,7 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
                 Offer = DbContext.Offers.Find(offer.Id)
             };
 
-            offer.OfferType = OfferType.Article;
+            article.Offer.OfferType = OfferType.Article;
 
             DbContext.Articles.Add(article);
 
