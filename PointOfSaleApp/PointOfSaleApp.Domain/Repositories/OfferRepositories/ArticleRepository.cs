@@ -2,9 +2,6 @@
 using PointOfSaleApp.Data.Entities.Models;
 using PointOfSaleApp.Data.Enums;
 using PointOfSaleApp.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
 {
@@ -21,26 +18,24 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
         {
             (var parentResult, var message, var offer) = _offerRepository.Add(name, description, availableQuantity);
 
-            if (offer is Offer)
-            {
-                if (price < 0.0m)
-                    return (ResponseResultType.ValidationError, "Price for article must be greater than 0.0");
+            if (!(offer is Offer))
+                return (parentResult, message);
 
-                var article = new Article
-                { 
-                    Price = price,
-                    Offer = DbContext.Offers.Find(offer.Id)
-                };
+            if (price < 0.0m)
+                return (ResponseResultType.ValidationError, "Price for article must be greater than 0.0");
 
-                offer.OfferType = OfferType.Article;
+            var article = new Article
+            { 
+                Price = price,
+                Offer = DbContext.Offers.Find(offer.Id)
+            };
 
-                DbContext.Articles.Add(article);
+            offer.OfferType = OfferType.Article;
 
-                var result = SaveChanges();
-                return (result == ResponseResultType.Success) ? (ResponseResultType.Success, "Succesfully added article.") : (ResponseResultType.NoChanges, "No changes made.");
-            }
+            DbContext.Articles.Add(article);
 
-            return (parentResult, message);
+            var result = SaveChanges();
+            return (result == ResponseResultType.Success) ? (ResponseResultType.Success, "Succesfully added article.") : (ResponseResultType.NoChanges, "No changes made.");
         }
     }
 }

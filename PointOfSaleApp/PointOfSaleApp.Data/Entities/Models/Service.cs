@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PointOfSaleApp.Data.Entities.Models
+﻿namespace PointOfSaleApp.Data.Entities.Models
 {
     public class Service
     {
@@ -19,7 +15,6 @@ namespace PointOfSaleApp.Data.Entities.Models
 
         public Service(Offer offer)
         {
-            OfferId = offer.Id;
             Offer = offer;
         }
     }

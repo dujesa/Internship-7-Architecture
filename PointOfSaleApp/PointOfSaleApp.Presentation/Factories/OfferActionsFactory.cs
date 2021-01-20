@@ -14,6 +14,7 @@ namespace PointOfSaleApp.Presentation.Factories
             var actions = new List<IAction>
             {
                 new ArticleAddAction(RepositoryFactory.GetRepository<ArticleRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
+                new ServiceAddAction(RepositoryFactory.GetRepository<ServiceRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
                 new ExitMenuAction()
             };
 

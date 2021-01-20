@@ -52,10 +52,7 @@ namespace PointOfSaleApp.Presentation.Actions.OfferActions
 
             var result = _articleRepository.Add(name, description, quantityAvailable, price);
 
-            if (result.Result == ResponseResultType.Success) 
-                Console.WriteLine("Article succesfully added.");
-            else
-                Console.WriteLine(result.Message);
+            Console.WriteLine(result.Message);
 
             Console.WriteLine("\nPress enter to continue...");
             Console.ReadLine();
