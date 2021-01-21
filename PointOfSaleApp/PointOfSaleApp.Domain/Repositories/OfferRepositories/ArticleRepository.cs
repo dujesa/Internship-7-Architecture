@@ -1,7 +1,11 @@
-﻿using PointOfSaleApp.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PointOfSaleApp.Data.Entities;
 using PointOfSaleApp.Data.Entities.Models;
 using PointOfSaleApp.Data.Enums;
 using PointOfSaleApp.Domain.Enums;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
 {
@@ -36,6 +40,29 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
 
             var result = SaveChanges();
             return (result == ResponseResultType.Success) ? (ResponseResultType.Success, "Succesfully added article.") : (ResponseResultType.NoChanges, "No changes made.");
+        }
+
+        public ResponseResultType Edit(Article article, int articleId)
+        {
+            var edittingArticle = DbContext.Articles.Find(articleId);
+
+            if(edittingArticle == null)
+            {
+                return ResponseResultType.NotFound;
+            }
+
+            _offerRepository.Edit(article.Offer, article.OfferId);
+
+            edittingArticle.Price = article.Price;
+
+            return SaveChanges();
+        }
+
+        public ICollection<Article> GetAll()
+        {
+            return DbContext.Articles
+                .Include(a => a.Offer)
+                .ToList();
         }
     }
 }

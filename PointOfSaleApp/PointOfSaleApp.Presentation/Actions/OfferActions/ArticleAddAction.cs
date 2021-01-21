@@ -45,6 +45,7 @@ namespace PointOfSaleApp.Presentation.Actions.OfferActions
                 isPriceRead = decimal.TryParse(Console.ReadLine(), out price);
             }
 
+            //deconstruct or remove returns
             var result = _articleRepository.Add(name, description, quantityAvailable, price);
 
             Console.WriteLine(result.Message);
