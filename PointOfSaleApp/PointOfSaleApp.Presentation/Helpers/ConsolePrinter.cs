@@ -24,8 +24,8 @@ namespace PointOfSaleApp.Presentation.Helpers
             PrintOffer(article.Offer);
             Console.WriteLine($"Price: {article.Price}\n" +
                 $"--------------------\n");
-        }        
-        
+        }
+
         public static void ShortPrintOffer(int id, Offer offer)
         {
             Console.WriteLine(
@@ -45,10 +45,23 @@ namespace PointOfSaleApp.Presentation.Helpers
                 ShortPrintOffer(article.Id, article.Offer);
         }
 
+        public static void ShortPrintServices(ICollection<Service> services)
+        {
+            foreach (var service in services)
+                ShortPrintOffer(service.Id, service.Offer);
+        }
+
         public static void DisplayArticle(Article article)
         {
             PrintOffer(article.Offer);
             Console.WriteLine($"Price: {article.Price}\n");
+        }
+
+        public static void DisplayService(Service service)
+        {
+            PrintOffer(service.Offer);
+            Console.WriteLine($"Price per hour: {service.PricePerHour}\n");
+            Console.WriteLine($"Working hours needed: {service.WorkingHoursNeeded}\n");
         }
 
         public static void ClearScreenWithSleep()

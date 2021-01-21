@@ -1,7 +1,10 @@
-﻿using PointOfSaleApp.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PointOfSaleApp.Data.Entities;
 using PointOfSaleApp.Data.Entities.Models;
 using PointOfSaleApp.Data.Enums;
 using PointOfSaleApp.Domain.Enums;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
 {
@@ -40,6 +43,47 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
 
             var result = SaveChanges();
             return (result == ResponseResultType.Success) ? (ResponseResultType.Success, "Succesfully added service.") : (ResponseResultType.NoChanges, "No changes made.");
+        }
+
+        public ResponseResultType Edit(Service service, int serviceId)
+        {
+            var edittingService = DbContext.Services.Find(serviceId);
+
+            if (edittingService == null)
+            {
+                return ResponseResultType.NotFound;
+            }
+
+            _offerRepository.Edit(service.Offer, service.OfferId);
+
+            edittingService.PricePerHour = service.PricePerHour;
+            edittingService.WorkingHoursNeeded = service.WorkingHoursNeeded;
+
+            return SaveChanges();
+        }
+
+        public ResponseResultType Delete(int serviceId)
+        {
+            var service = DbContext.Services.Find(serviceId);
+
+            if (service == null)
+                return ResponseResultType.NotFound;
+
+            DbContext.Services.Remove(service);
+
+            var result = SaveChanges();
+
+            if (result != ResponseResultType.Success)
+                return result;
+
+            return _offerRepository.Delete(service.OfferId);
+        }
+
+        public ICollection<Service> GetAll()
+        {
+            return DbContext.Services
+                .Include(a => a.Offer)
+                .ToList();
         }
     }
 }
