@@ -51,6 +51,12 @@ namespace PointOfSaleApp.Presentation.Helpers
                 ShortPrintOffer(service.Id, service.Offer);
         }
 
+        public static void ShortPrintSubscriptions(ICollection<Subscription> subscriptions)
+        {
+            foreach (var subscription in subscriptions)
+                ShortPrintOffer(subscription.Id, subscription.Offer);
+        }
+
         public static void DisplayArticle(Article article)
         {
             PrintOffer(article.Offer);
@@ -62,6 +68,12 @@ namespace PointOfSaleApp.Presentation.Helpers
             PrintOffer(service.Offer);
             Console.WriteLine($"Price per hour: {service.PricePerHour}\n");
             Console.WriteLine($"Working hours needed: {service.WorkingHoursNeeded}\n");
+        }
+
+        public static void DisplaySubscription(Subscription subscription)
+        {
+            PrintOffer(subscription.Offer);
+            Console.WriteLine($"Price per day: {subscription.PricePerDay}\n");
         }
 
         public static void ClearScreenWithSleep()

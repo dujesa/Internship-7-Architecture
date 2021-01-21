@@ -1,7 +1,10 @@
-﻿using PointOfSaleApp.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PointOfSaleApp.Data.Entities;
 using PointOfSaleApp.Data.Entities.Models;
 using PointOfSaleApp.Data.Enums;
 using PointOfSaleApp.Domain.Enums;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
 {
@@ -36,6 +39,46 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
 
             var result = SaveChanges();
             return (result == ResponseResultType.Success) ? (ResponseResultType.Success, "Succesfully added subscription.") : (ResponseResultType.NoChanges, "No changes made.");
+        }
+
+        public ResponseResultType Edit(Subscription subscription, int subscriptionId)
+        {
+            var edittingSubscription = DbContext.Subscriptions.Find(subscriptionId);
+
+            if (edittingSubscription == null)
+            {
+                return ResponseResultType.NotFound;
+            }
+
+            _offerRepository.Edit(subscription.Offer, subscription.OfferId);
+
+            edittingSubscription.PricePerDay = subscription.PricePerDay;
+
+            return SaveChanges();
+        }
+
+        public ResponseResultType Delete(int subscriptionId)
+        {
+            var subscription = DbContext.Subscriptions.Find(subscriptionId);
+
+            if (subscription == null)
+                return ResponseResultType.NotFound;
+
+            DbContext.Subscriptions.Remove(subscription);
+
+            var result = SaveChanges();
+
+            if (result != ResponseResultType.Success)
+                return result;
+
+            return _offerRepository.Delete(subscription.OfferId);
+        }
+
+        public ICollection<Subscription> GetAll()
+        {
+            return DbContext.Subscriptions
+                .Include(s => s.Offer)
+                .ToList();
         }
     }
 }
