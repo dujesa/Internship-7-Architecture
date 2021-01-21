@@ -58,6 +58,23 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
             return SaveChanges();
         }
 
+        public ResponseResultType Delete(int articleId)
+        {
+            var article = DbContext.Articles.Find(articleId);
+
+            if (article == null)
+                return ResponseResultType.NotFound;
+
+            DbContext.Articles.Remove(article);
+
+            var result = SaveChanges();
+
+            if (result != ResponseResultType.Success)
+                return result;
+
+            return _offerRepository.Delete(article.OfferId);
+        }
+
         public ICollection<Article> GetAll()
         {
             return DbContext.Articles

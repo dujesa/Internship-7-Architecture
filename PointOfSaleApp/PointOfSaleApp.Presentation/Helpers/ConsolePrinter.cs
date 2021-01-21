@@ -24,12 +24,25 @@ namespace PointOfSaleApp.Presentation.Helpers
             PrintOffer(article.Offer);
             Console.WriteLine($"Price: {article.Price}\n" +
                 $"--------------------\n");
+        }        
+        
+        public static void ShortPrintOffer(int id, Offer offer)
+        {
+            Console.WriteLine(
+                $"Id: {id} - Name: {offer.Name}\n" +
+                $"--------------------\n");
         }
 
         public static void PrintArticles(ICollection<Article> articles)
         {
             foreach (var article in articles)
                 PrintArticle(article);
+        }
+
+        public static void ShortPrintArticles(ICollection<Article> articles)
+        {
+            foreach (var article in articles)
+                ShortPrintOffer(article.Id, article.Offer);
         }
 
         public static void DisplayArticle(Article article)

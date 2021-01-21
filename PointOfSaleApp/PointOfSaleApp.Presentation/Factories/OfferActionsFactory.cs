@@ -17,7 +17,9 @@ namespace PointOfSaleApp.Presentation.Factories
                 new ServiceAddAction(RepositoryFactory.GetRepository<ServiceRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
                 new SubscriptionAddAction(RepositoryFactory.GetRepository<SubscriptionRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
 
-                new ArticleEditAction(RepositoryFactory.GetRepository<OfferRepository>(), RepositoryFactory.GetRepository<ArticleRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
+                new ArticleEditAction(RepositoryFactory.GetRepository<ArticleRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
+                
+                new ArticleDeleteAction(RepositoryFactory.GetRepository<ArticleRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
 
                 new ExitMenuAction()
             };

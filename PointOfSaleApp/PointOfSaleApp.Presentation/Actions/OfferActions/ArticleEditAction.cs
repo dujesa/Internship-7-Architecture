@@ -13,26 +13,24 @@ namespace PointOfSaleApp.Presentation.Actions.OfferActions
 {
     public class ArticleEditAction : IAction
     {
-        private readonly OfferRepository _offerRepository;
         private readonly ArticleRepository _articleRepository;
 
         public int MenuIndex { get; set; }
         public string Label { get; set; } = "Edit article";
 
-        public ArticleEditAction(OfferRepository offerRepository, ArticleRepository articleRepository)
+        public ArticleEditAction(ArticleRepository articleRepository)
         {
-            _offerRepository = offerRepository;
             _articleRepository = articleRepository;
         }
 
         public void Call()
         {
             var articles = _articleRepository.GetAll();
-            ConsolePrinter.PrintArticles(articles);
+            ConsolePrinter.ShortPrintArticles(articles);
 
             Console.WriteLine("\n Type article id(number) or any other key for exit");
-            var isNumberInputted = ConsoleReader.IsNumberRead(out var articleId);
-            if (!isNumberInputted)
+            var isNumberInputted = ConsoleReader.IsExitReadOnNumberInput(out var articleId);
+            if (isNumberInputted)
                 return;
 
             var article = articles.FirstOrDefault(a => a.Id == articleId);

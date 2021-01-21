@@ -1,6 +1,7 @@
 ﻿using PointOfSaleApp.Data.Entities;
 using PointOfSaleApp.Data.Entities.Models;
 using PointOfSaleApp.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -52,6 +53,18 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
         public Offer GetById(int id)
         {
             return DbContext.Offers.Find(id);
+        }
+
+        public ResponseResultType Delete(int offerId)
+        {
+            var offer = DbContext.Offers.Find(offerId);
+
+            if (offer == null)
+                return ResponseResultType.NotFound;
+
+            DbContext.Offers.Remove(offer);
+
+            return SaveChanges();
         }
     }
 }
