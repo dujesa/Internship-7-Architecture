@@ -26,11 +26,22 @@ namespace PointOfSaleApp.Presentation.Helpers
                 $"--------------------\n");
         }
 
+        public static void PrintOfferCategory(OfferCategory offerCategory)
+        {
+            Console.WriteLine($"Id: {offerCategory.Id} - Name: {offerCategory.Name}\n");
+        }
+
         public static void ShortPrintOffer(int id, Offer offer)
         {
             Console.WriteLine(
                 $"Id: {id} - Name: {offer.Name}\n" +
                 $"--------------------\n");
+        }
+
+        public static void ShortPrintOfferCategories(ICollection<OfferCategory> offerCategories)
+        {
+            foreach (var offerCategory in offerCategories)
+                PrintOfferCategory(offerCategory);
         }
 
         public static void PrintArticles(ICollection<Article> articles)

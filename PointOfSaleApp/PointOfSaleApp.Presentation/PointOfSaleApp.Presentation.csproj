@@ -20,7 +20,6 @@
   <ItemGroup>
     <Folder Include="Actions\BillActions\" />
     <Folder Include="Actions\UserActions\" />
-    <Folder Include="Actions\OfferCategoryActions\" />
   </ItemGroup>
 
 </Project>
