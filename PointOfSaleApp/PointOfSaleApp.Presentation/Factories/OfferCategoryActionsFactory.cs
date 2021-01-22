@@ -19,10 +19,9 @@ namespace PointOfSaleApp.Presentation.Factories
             var actions = new List<IAction>
             {
                 new OfferCategoryAddAction(RepositoryFactory.GetRepository<OfferCategoryRepository>()),
-                new OfferCategoryEditAction(RepositoryFactory.GetRepository<OfferCategoryRepository>()),
+                new OfferCategoryEditAction(RepositoryFactory.GetRepository<OfferCategoryRepository>(), RepositoryFactory.GetRepository<OfferRepository>()),
                 new OfferCategoryDeleteAction(RepositoryFactory.GetRepository<OfferCategoryRepository>()),
                 new OfferCategoryReviewAction(RepositoryFactory.GetRepository<OfferCategoryRepository>(), RepositoryFactory.GetRepository<OfferRepository>()),
-                //new OfferCategoryManagementAction(RepositoryFactory.GetRepository<SubscriptionRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
 
                 new ExitMenuAction()
             };

@@ -77,12 +77,17 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
                 .Where(oc => oc.Id == categoryId)
                 .FirstOrDefault();
 
-            if (category is OfferCategory)
-            {
-                return category.Offers;
-            }
+            return (category is OfferCategory)
+                ? category.Offers
+                : new List<Offer>();
+        }
 
-            return new List<Offer>();
+        public ICollection<Offer> GetAll()
+        {
+
+            return DbContext.Offers
+                .Include(o => o.OfferCategories)
+                .ToList();
         }
     }
 }

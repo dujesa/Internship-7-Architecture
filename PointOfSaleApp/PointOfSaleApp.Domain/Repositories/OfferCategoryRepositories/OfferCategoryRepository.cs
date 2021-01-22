@@ -1,4 +1,5 @@
-﻿using PointOfSaleApp.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PointOfSaleApp.Data.Entities;
 using PointOfSaleApp.Data.Entities.Models;
 using PointOfSaleApp.Domain.Enums;
 using System;
@@ -60,12 +61,16 @@ namespace PointOfSaleApp.Domain.Repositories.OfferCategoryRepositories
 
         public OfferCategory GetById(int id)
         {
-            return DbContext.OfferCategories.Find(id);
+            return DbContext.OfferCategories
+                .Include(oc => oc.Offers)
+                .Where(oc => oc.Id == id)
+                .FirstOrDefault();
         }
 
         public ICollection<OfferCategory> GetAll()
         {
             return DbContext.OfferCategories
+                .Include(oc => oc.Offers)
                 .ToList();
         }
     }

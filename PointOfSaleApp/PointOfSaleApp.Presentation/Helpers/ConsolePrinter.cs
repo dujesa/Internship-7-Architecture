@@ -13,6 +13,7 @@ namespace PointOfSaleApp.Presentation.Helpers
         public static void PrintOffer(Offer offer)
         {
             Console.WriteLine(
+                $"Id: {offer.Id}\n" +
                 $"Name: {offer.Name}\n" +
                 $"Type: {offer.OfferType}\n" +
                 $"Description: {offer.Description}\n" +
