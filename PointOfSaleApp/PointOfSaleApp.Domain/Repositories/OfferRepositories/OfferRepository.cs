@@ -1,4 +1,5 @@
-﻿using PointOfSaleApp.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PointOfSaleApp.Data.Entities;
 using PointOfSaleApp.Data.Entities.Models;
 using PointOfSaleApp.Domain.Enums;
 using System;
@@ -65,6 +66,23 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
             DbContext.Offers.Remove(offer);
 
             return SaveChanges();
+        }
+
+        public ICollection<Offer> GetAllByCategoryId(int categoryId)
+        {
+            var category = DbContext.OfferCategories
+                .Include(oc => oc.Offers).ThenInclude(o => o.Articles)
+                .Include(oc => oc.Offers).ThenInclude(o => o.Subscriptions)
+                .Include(oc => oc.Offers).ThenInclude(o => o.Services)
+                .Where(oc => oc.Id == categoryId)
+                .FirstOrDefault();
+
+            if (category is OfferCategory)
+            {
+                return category.Offers;
+            }
+
+            return new List<Offer>();
         }
     }
 }

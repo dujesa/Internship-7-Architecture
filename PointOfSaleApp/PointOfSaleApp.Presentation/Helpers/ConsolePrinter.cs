@@ -14,6 +14,7 @@ namespace PointOfSaleApp.Presentation.Helpers
         {
             Console.WriteLine(
                 $"Name: {offer.Name}\n" +
+                $"Type: {offer.OfferType}\n" +
                 $"Description: {offer.Description}\n" +
                 $"Available quantity: {offer.AvailableQuantity}\n");
         }
@@ -48,6 +49,12 @@ namespace PointOfSaleApp.Presentation.Helpers
         {
             foreach (var article in articles)
                 PrintArticle(article);
+        }
+
+        internal static void PrintOffers(ICollection<Offer> offers)
+        {
+            foreach (var offer in offers)
+                PrintOffer(offer);
         }
 
         public static void ShortPrintArticles(ICollection<Article> articles)

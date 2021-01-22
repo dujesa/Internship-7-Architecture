@@ -1,5 +1,6 @@
 ﻿using PointOfSaleApp.Domain.Factories;
 using PointOfSaleApp.Domain.Repositories.OfferCategoryRepositories;
+using PointOfSaleApp.Domain.Repositories.OfferRepositories;
 using PointOfSaleApp.Presentation.Abstractions;
 using PointOfSaleApp.Presentation.Actions;
 using PointOfSaleApp.Presentation.Actions.OfferCategoryActions;
@@ -20,6 +21,7 @@ namespace PointOfSaleApp.Presentation.Factories
                 new OfferCategoryAddAction(RepositoryFactory.GetRepository<OfferCategoryRepository>()),
                 new OfferCategoryEditAction(RepositoryFactory.GetRepository<OfferCategoryRepository>()),
                 new OfferCategoryDeleteAction(RepositoryFactory.GetRepository<OfferCategoryRepository>()),
+                new OfferCategoryReviewAction(RepositoryFactory.GetRepository<OfferCategoryRepository>(), RepositoryFactory.GetRepository<OfferRepository>()),
                 //new OfferCategoryManagementAction(RepositoryFactory.GetRepository<SubscriptionRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
 
                 new ExitMenuAction()
