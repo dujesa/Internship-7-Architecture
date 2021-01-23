@@ -18,12 +18,12 @@ namespace PointOfSaleApp.Presentation.Factories
             var actions = new List<IAction>
             {
                 new InventoryAddAction(RepositoryFactory.GetRepository<OfferRepository>()),
-                //new InventoryDeleteAction(RepositoryFactory.GetRepository<OfferCategoryRepository>()),
-                //new InventoryReviewAction(RepositoryFactory.GetRepository<OfferCategoryRepository>(), RepositoryFactory.GetRepository<OfferRepository>()),
-                //new InventoryQuantityManagementAction(RepositoryFactory.GetRepository<OfferCategoryRepository>(), RepositoryFactory.GetRepository<OfferRepository>()),
-                //new ArticlesInventoryAction(RepositoryFactory.GetRepository<OfferCategoryRepository>(), RepositoryFactory.GetRepository<OfferRepository>()),
-                //new AvailableSubscriptionsInventoryAction(RepositoryFactory.GetRepository<OfferCategoryRepository>(), RepositoryFactory.GetRepository<OfferRepository>()),
-                //new AvailableServicesInventoryAction(RepositoryFactory.GetRepository<OfferCategoryRepository>(), RepositoryFactory.GetRepository<OfferRepository>()),
+                new InventoryDeleteAction(RepositoryFactory.GetRepository<OfferRepository>()),
+                new InventoryReviewAction(RepositoryFactory.GetRepository<OfferRepository>()),
+                new InventoryQuantityManagementAction(RepositoryFactory.GetRepository<OfferRepository>()),
+                new AvailableArticlesInventoryAction(RepositoryFactory.GetRepository<ArticleRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
+                new AvailableSubscriptionsInventoryAction(RepositoryFactory.GetRepository<SubscriptionRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
+                new AvailableServicesInventoryAction(RepositoryFactory.GetRepository<ServiceRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
 
                 new ExitMenuAction()
             };

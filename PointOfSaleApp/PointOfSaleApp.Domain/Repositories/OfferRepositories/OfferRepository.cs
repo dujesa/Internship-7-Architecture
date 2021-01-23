@@ -35,11 +35,37 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
             return (result == ResponseResultType.Success) ? (result, "Offer has been successfully added.", offer) : (result, "No changes made, no new offer added.", null);
         }
 
+        public ICollection<Offer> GetAvailable()
+        {
+            return DbContext.Offers
+                .Where(o => o.AvailableQuantity > 0)
+                .ToList();
+        }
+
         public ICollection<Offer> GetSoldOut()
         {
             return DbContext.Offers
                 .Where(o => o.AvailableQuantity <= 0)
                 .ToList();
+        }
+
+        public ResponseResultType UpdateAvailableQuantityById(int availableQuantity, int offerId)
+        {
+            var edittingOffer = DbContext.Offers
+                .Include(o => o.Articles)
+                .Include(o => o.Services)
+                .Include(o => o.Subscriptions)
+                .Where(o => o.Id == offerId)
+                .FirstOrDefault();
+
+            if (edittingOffer == null)
+            {
+                return ResponseResultType.NotFound;
+            }
+
+            edittingOffer.AvailableQuantity = availableQuantity;
+
+            return SaveChanges();
         }
 
         public ResponseResultType Edit(Offer offer, int offerId)

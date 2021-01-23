@@ -11,13 +11,13 @@ namespace PointOfSaleApp.Presentation.Actions.InventoryActions
     {
         public InventoryParentActions(IList<IAction> actions) : base(actions)
         {
-            Label = "Manage inventory";
+            Label = "Offers inventory";
             Actions = actions;
         }
 
         public override void Call()
         {
-            Console.WriteLine("Inventory managements");
+            Console.WriteLine("Inventory actions");
             base.Call();
         }
     }

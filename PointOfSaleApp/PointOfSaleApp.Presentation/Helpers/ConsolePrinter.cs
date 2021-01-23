@@ -51,6 +51,18 @@ namespace PointOfSaleApp.Presentation.Helpers
         {
             foreach (var article in articles)
                 PrintArticle(article);
+        }        
+        
+        public static void PrintSubscriptions(ICollection<Subscription> subscriptions)
+        {
+            foreach (var subscription in subscriptions)
+                DisplaySubscription(subscription);
+        }        
+        
+        public static void PrintServices(ICollection<Service> services)
+        {
+            foreach (var service in services)
+                DisplayService(service);
         }
 
         internal static void PrintOffers(ICollection<Offer> offers)

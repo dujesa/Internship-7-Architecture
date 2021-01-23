@@ -15,7 +15,7 @@ namespace PointOfSaleApp.Presentation.Actions.InventoryActions
         private readonly OfferRepository _offerRepository;
 
         public int MenuIndex { get; set; }
-        public string Label { get; set; } = "Add to inventory";
+        public string Label { get; set; } = "Add offer to inventory";
 
         public InventoryAddAction(OfferRepository offerRepository)
         {
@@ -24,11 +24,12 @@ namespace PointOfSaleApp.Presentation.Actions.InventoryActions
 
         public void Call()
         {
-            var soldOutOffers = _offerRepository.GetSoldOut();
             var isExitInputted = false;
 
             do
             {
+                var soldOutOffers = _offerRepository.GetSoldOut();
+
                 Console.WriteLine($"List of all sold out offers:");
                 ConsolePrinter.PrintOffers(soldOutOffers);
 

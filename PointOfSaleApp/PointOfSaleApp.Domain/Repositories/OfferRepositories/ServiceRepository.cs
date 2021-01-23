@@ -45,6 +45,13 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
             return (result == ResponseResultType.Success) ? (ResponseResultType.Success, "Succesfully added service.") : (ResponseResultType.NoChanges, "No changes made.");
         }
 
+        public ICollection<Service> GetAvailable()
+        {
+            return GetAll()
+                .Where(s => s.Offer.AvailableQuantity > 0)
+                .ToList();
+        }
+
         public ResponseResultType Edit(Service service, int serviceId)
         {
             var edittingService = DbContext.Services.Find(serviceId);
@@ -77,6 +84,12 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
                 return result;
 
             return _offerRepository.Delete(service.OfferId);
+        }
+
+        public Service GetById(int id)
+        {
+            return DbContext.Services
+                .FirstOrDefault(s => s.Id == id);
         }
 
         public ICollection<Service> GetAll()

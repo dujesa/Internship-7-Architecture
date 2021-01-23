@@ -41,6 +41,13 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
             return (result == ResponseResultType.Success) ? (ResponseResultType.Success, "Succesfully added subscription.") : (ResponseResultType.NoChanges, "No changes made.");
         }
 
+        public ICollection<Subscription> GetAvailable()
+        {
+            return GetAll()
+                .Where(s => s.Offer.AvailableQuantity > 0)
+                .ToList();
+        }
+
         public ResponseResultType Edit(Subscription subscription, int subscriptionId)
         {
             var edittingSubscription = DbContext.Subscriptions.Find(subscriptionId);
@@ -72,6 +79,12 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
                 return result;
 
             return _offerRepository.Delete(subscription.OfferId);
+        }
+
+        public Subscription GetById(int id)
+        {
+            return DbContext.Subscriptions
+                .FirstOrDefault(s => s.Id == id);
         }
 
         public ICollection<Subscription> GetAll()
