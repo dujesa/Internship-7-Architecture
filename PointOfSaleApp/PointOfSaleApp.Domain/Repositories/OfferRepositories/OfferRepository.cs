@@ -86,7 +86,6 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
         {
 
             return DbContext.Offers
-                .Include(o => o.OfferCategories)
                 .ToList();
         }
     }

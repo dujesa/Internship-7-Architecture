@@ -17,8 +17,10 @@ namespace PointOfSaleApp.Data.Seeds
                     new Customer
                     {
                         Id = 1,
-                        CreditCardNumber = "01920123",
-                        UserId = 1
+                        PIN = "12345",
+                        FirstName = "Mladen",
+                        LastName = "Mladenović",
+                        CreditCardNumber = "01920123"
                     }
                 });
 
@@ -28,30 +30,14 @@ namespace PointOfSaleApp.Data.Seeds
                     new Employee
                     {
                         Id = 1,
+                        PIN = "23456",
+                        FirstName = "Pero",
+                        LastName = "Perić",
+                        LoginPassword = "dumptest",
                         DailyWorkingHours = 8,
-                        UserId = 2
                     }
                 });
 
-
-            modelBuilder.Entity<User>()
-                .HasData(new List<User>
-                {
-                    new User
-                    {
-                        Id = 1,
-                        PIN = "12345",
-                        FirstName = "Mladen",
-                        LastName = "Mladenović"
-                    },
-                    new User
-                    {
-                        Id = 2,
-                        PIN = "23456",
-                        FirstName = "Pero",
-                        LastName = "Perić"
-                    },
-                });
 
             modelBuilder.Entity<OfferCategory>()
                 .HasData(new List<OfferCategory>

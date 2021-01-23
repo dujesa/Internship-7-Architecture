@@ -10,5 +10,10 @@ namespace PointOfSaleApp.Data.Entities.Models
         public string Name { get; set; }
 
         public ICollection<Offer> Offers { get; set; }
+
+        public OfferCategory()
+        {
+            Offers = new List<Offer>();
+        }
     }
 }

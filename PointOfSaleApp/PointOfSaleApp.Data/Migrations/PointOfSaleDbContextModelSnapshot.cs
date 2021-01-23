@@ -87,28 +87,28 @@ namespace PointOfSaleApp.Data.Migrations
                         {
                             Id = 1,
                             BillType = 0,
-                            IssuedAt = new DateTime(2021, 1, 18, 16, 50, 15, 758, DateTimeKind.Local).AddTicks(866),
+                            IssuedAt = new DateTime(2021, 1, 23, 9, 8, 25, 867, DateTimeKind.Local).AddTicks(7627),
                             Price = 199.99m
                         },
                         new
                         {
                             Id = 2,
                             BillType = 0,
-                            IssuedAt = new DateTime(2021, 1, 18, 16, 50, 15, 761, DateTimeKind.Local).AddTicks(9166),
+                            IssuedAt = new DateTime(2021, 1, 23, 9, 8, 25, 874, DateTimeKind.Local).AddTicks(4133),
                             Price = 14.99m
                         },
                         new
                         {
                             Id = 3,
                             BillType = 1,
-                            IssuedAt = new DateTime(2021, 1, 18, 16, 50, 15, 761, DateTimeKind.Local).AddTicks(9216),
+                            IssuedAt = new DateTime(2021, 1, 23, 9, 8, 25, 874, DateTimeKind.Local).AddTicks(4175),
                             Price = 99.99m
                         },
                         new
                         {
                             Id = 4,
                             BillType = 2,
-                            IssuedAt = new DateTime(2021, 1, 18, 16, 50, 15, 761, DateTimeKind.Local).AddTicks(9222),
+                            IssuedAt = new DateTime(2021, 1, 23, 9, 8, 25, 874, DateTimeKind.Local).AddTicks(4181),
                             Price = 100.59m
                         });
                 });
@@ -185,12 +185,16 @@ namespace PointOfSaleApp.Data.Migrations
                     b.Property<string>("CreditCardNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PIN")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Customers");
 
@@ -199,7 +203,9 @@ namespace PointOfSaleApp.Data.Migrations
                         {
                             Id = 1,
                             CreditCardNumber = "01920123",
-                            UserId = 1
+                            FirstName = "Mladen",
+                            LastName = "Mladenović",
+                            PIN = "12345"
                         });
                 });
 
@@ -213,15 +219,22 @@ namespace PointOfSaleApp.Data.Migrations
                     b.Property<int>("DailyWorkingHours")
                         .HasColumnType("int");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LoginPassword")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PIN")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ServiceHoursToDo")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Employees");
 
@@ -230,8 +243,11 @@ namespace PointOfSaleApp.Data.Migrations
                         {
                             Id = 1,
                             DailyWorkingHours = 8,
-                            ServiceHoursToDo = 0,
-                            UserId = 2
+                            FirstName = "Pero",
+                            LastName = "Perić",
+                            LoginPassword = "dumptest",
+                            PIN = "23456",
+                            ServiceHoursToDo = 0
                         });
                 });
 
@@ -254,6 +270,9 @@ namespace PointOfSaleApp.Data.Migrations
                     b.Property<int>("OfferType")
                         .HasColumnType("int");
 
+                    b.Property<int>("SoldQuantity")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Offers");
@@ -265,7 +284,8 @@ namespace PointOfSaleApp.Data.Migrations
                             AvailableQuantity = 20,
                             Description = "/",
                             Name = "Okvir karbonski - Giant",
-                            OfferType = 0
+                            OfferType = 0,
+                            SoldQuantity = 0
                         },
                         new
                         {
@@ -273,7 +293,8 @@ namespace PointOfSaleApp.Data.Migrations
                             AvailableQuantity = 4,
                             Description = "/",
                             Name = "Popravak kvarova u mjenaču",
-                            OfferType = 1
+                            OfferType = 1,
+                            SoldQuantity = 0
                         },
                         new
                         {
@@ -281,7 +302,8 @@ namespace PointOfSaleApp.Data.Migrations
                             AvailableQuantity = 2,
                             Description = "/",
                             Name = "Posudba MTB bicikala",
-                            OfferType = 2
+                            OfferType = 2,
+                            SoldQuantity = 0
                         });
                 });
 
@@ -331,13 +353,13 @@ namespace PointOfSaleApp.Data.Migrations
                         {
                             Id = 1,
                             BillId = 1,
-                            PickupTime = new DateTime(2021, 1, 18, 19, 5, 15, 762, DateTimeKind.Local).AddTicks(2189)
+                            PickupTime = new DateTime(2021, 1, 23, 11, 23, 25, 874, DateTimeKind.Local).AddTicks(7073)
                         },
                         new
                         {
                             Id = 2,
                             BillId = 2,
-                            PickupTime = new DateTime(2021, 1, 28, 16, 50, 15, 762, DateTimeKind.Local).AddTicks(3289)
+                            PickupTime = new DateTime(2021, 2, 2, 9, 8, 25, 874, DateTimeKind.Local).AddTicks(7701)
                         });
                 });
 
@@ -403,7 +425,7 @@ namespace PointOfSaleApp.Data.Migrations
                             Id = 1,
                             BillId = 3,
                             EmployeeId = 1,
-                            PickupTime = new DateTime(2021, 1, 18, 17, 35, 15, 762, DateTimeKind.Local).AddTicks(5856)
+                            PickupTime = new DateTime(2021, 1, 23, 9, 53, 25, 874, DateTimeKind.Local).AddTicks(9977)
                         });
                 });
 
@@ -469,43 +491,6 @@ namespace PointOfSaleApp.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PointOfSaleApp.Data.Entities.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PIN")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FirstName = "Mladen",
-                            LastName = "Mladenović",
-                            PIN = "12345"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FirstName = "Pero",
-                            LastName = "Perić",
-                            PIN = "23456"
-                        });
-                });
-
             modelBuilder.Entity("OfferOfferCategory", b =>
                 {
                     b.HasOne("PointOfSaleApp.Data.Entities.Models.OfferCategory", null)
@@ -549,28 +534,6 @@ namespace PointOfSaleApp.Data.Migrations
                     b.Navigation("Bill");
 
                     b.Navigation("Offer");
-                });
-
-            modelBuilder.Entity("PointOfSaleApp.Data.Entities.Models.Customer", b =>
-                {
-                    b.HasOne("PointOfSaleApp.Data.Entities.Models.User", "User")
-                        .WithMany("Customers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("PointOfSaleApp.Data.Entities.Models.Employee", b =>
-                {
-                    b.HasOne("PointOfSaleApp.Data.Entities.Models.User", "User")
-                        .WithMany("Employees")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PointOfSaleApp.Data.Entities.Models.OneOffBill", b =>
@@ -672,13 +635,6 @@ namespace PointOfSaleApp.Data.Migrations
                     b.Navigation("Services");
 
                     b.Navigation("Subscriptions");
-                });
-
-            modelBuilder.Entity("PointOfSaleApp.Data.Entities.Models.User", b =>
-                {
-                    b.Navigation("Customers");
-
-                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }

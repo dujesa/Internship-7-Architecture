@@ -29,7 +29,6 @@ namespace PointOfSaleApp.Data.Entities
         public DbSet<ServiceBill> ServiceBills { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<SubscriptionBill> SubscriptionBills { get; set; }
-        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

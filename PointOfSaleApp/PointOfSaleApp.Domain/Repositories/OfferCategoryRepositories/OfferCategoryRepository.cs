@@ -73,5 +73,25 @@ namespace PointOfSaleApp.Domain.Repositories.OfferCategoryRepositories
                 .Include(oc => oc.Offers)
                 .ToList();
         }
+
+        public (ResponseResultType Response, OfferCategory category) AddOffer(Offer addingOffer, OfferCategory offerCategory, ICollection<OfferCategory> offerCategories)
+        {
+            foreach (var category in offerCategories)
+            {
+                var existingOffer = category.Offers.Where(o => o.Id == addingOffer.Id).FirstOrDefault();
+
+                if (existingOffer is Offer)
+                {
+                    DbContext.Entry<Offer>(existingOffer).State = EntityState.Detached;
+                }
+            }
+
+            offerCategory.Offers.Add(addingOffer);
+            addingOffer.OfferCategories.Add(offerCategory);
+            
+            //DbContext.Entry<OfferCategory>(offerCategory).State = EntityState.Detached;
+
+            return (SaveChanges(), offerCategory);
+        }
     }
 }
