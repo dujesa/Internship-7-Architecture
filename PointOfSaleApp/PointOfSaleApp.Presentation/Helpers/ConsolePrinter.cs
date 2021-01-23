@@ -1,4 +1,5 @@
 ﻿using PointOfSaleApp.Data.Entities.Models;
+using PointOfSaleApp.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -99,6 +100,26 @@ namespace PointOfSaleApp.Presentation.Helpers
         {
             Thread.Sleep(1000);
             Console.Clear();
+        }
+
+        public static void DisplayResponse(ResponseResultType response)
+        {
+            Console.Clear();
+
+            if (response == ResponseResultType.Success)
+            {
+                Console.WriteLine("Action was succesfully done.\n");
+            }
+
+            if (response == ResponseResultType.NotFound)
+            {
+                Console.WriteLine("Object not found\n");
+            }
+
+            if (response == ResponseResultType.NoChanges)
+            {
+                Console.WriteLine("No changes applied\n");
+            }
         }
     }
 }

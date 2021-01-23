@@ -74,11 +74,13 @@ namespace PointOfSaleApp.Domain.Repositories.OfferCategoryRepositories
                 .ToList();
         }
 
-        public (ResponseResultType Response, OfferCategory category) AddOffer(Offer addingOffer, OfferCategory offerCategory, ICollection<OfferCategory> offerCategories)
+        public ResponseResultType AddOffer(Offer addingOffer, OfferCategory offerCategory, ICollection<OfferCategory> offerCategories)
         {
             foreach (var category in offerCategories)
             {
-                var existingOffer = category.Offers.Where(o => o.Id == addingOffer.Id).FirstOrDefault();
+                var existingOffer = category.Offers
+                    .Where(o => o.Id == addingOffer.Id)
+                    .FirstOrDefault();
 
                 if (existingOffer is Offer)
                 {
@@ -89,9 +91,14 @@ namespace PointOfSaleApp.Domain.Repositories.OfferCategoryRepositories
             offerCategory.Offers.Add(addingOffer);
             addingOffer.OfferCategories.Add(offerCategory);
             
-            //DbContext.Entry<OfferCategory>(offerCategory).State = EntityState.Detached;
 
-            return (SaveChanges(), offerCategory);
+            return SaveChanges();
+        }
+
+        public bool HasOffer(OfferCategory offerCategory, Offer addingOffer)
+        {
+            return offerCategory.Offers
+                .Any(o => o.Id == addingOffer.Id);
         }
     }
 }
