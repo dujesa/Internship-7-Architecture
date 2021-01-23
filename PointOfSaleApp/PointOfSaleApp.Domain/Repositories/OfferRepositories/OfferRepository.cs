@@ -35,6 +35,13 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
             return (result == ResponseResultType.Success) ? (result, "Offer has been successfully added.", offer) : (result, "No changes made, no new offer added.", null);
         }
 
+        public ICollection<Offer> GetSoldOut()
+        {
+            return DbContext.Offers
+                .Where(o => o.AvailableQuantity <= 0)
+                .ToList();
+        }
+
         public ResponseResultType Edit(Offer offer, int offerId)
         {
             var edittingOffer = DbContext.Offers.Find(offerId);

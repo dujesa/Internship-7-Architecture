@@ -18,11 +18,6 @@ namespace PointOfSaleApp.Presentation.Actions.OfferActions
 
         public void Call()
         {
-            //toDo: Print option to choose offer category
-            // 1. - repo get all
-            // 2. - pretty print categories
-            // 3. - get number for category
-
             Console.WriteLine("Enter name:");
             var name = Console.ReadLine();
 

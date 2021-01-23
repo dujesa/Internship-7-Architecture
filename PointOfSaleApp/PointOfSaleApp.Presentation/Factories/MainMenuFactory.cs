@@ -13,6 +13,7 @@ namespace PointOfSaleApp.Presentation.Factories
             {
                 OfferActionsFactory.GetOfferParentActions(),
                 OfferCategoryActionsFactory.GetOfferCategoryParentActions(),
+                InventoryActionsFactory.GetInventoryParentActions(),
                 new ExitMenuAction()
             };
 
