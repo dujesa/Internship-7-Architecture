@@ -7,7 +7,7 @@ namespace PointOfSaleApp.Data.Entities.Models
     public class SubscriptionBill
     {
         public int Id { get; set; }
-        public bool IsCancelled { get; set; } = false;
+        public bool IsTerminated { get; set; } = false;
 
         public int BillId { get; set; }
         public Bill Bill { get; set; }

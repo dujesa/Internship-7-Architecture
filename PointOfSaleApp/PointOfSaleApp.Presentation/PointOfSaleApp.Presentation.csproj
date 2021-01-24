@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Actions\BillActions\" />
     <Folder Include="Actions\UserActions\" />
   </ItemGroup>
 

@@ -182,7 +182,6 @@ namespace PointOfSaleApp.Data.Seeds
                         Id = 1,
                         BillId = 4,
                         CustomerId = 1,
-                        IsCancelled = false
                     }
                 });
             

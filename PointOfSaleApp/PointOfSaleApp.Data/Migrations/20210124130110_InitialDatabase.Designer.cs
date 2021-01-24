@@ -10,7 +10,7 @@ using PointOfSaleApp.Data.Entities;
 namespace PointOfSaleApp.Data.Migrations
 {
     [DbContext(typeof(PointOfSaleDbContext))]
-    [Migration("20210123080826_InitialDatabase")]
+    [Migration("20210124130110_InitialDatabase")]
     partial class InitialDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,6 +74,9 @@ namespace PointOfSaleApp.Data.Migrations
                     b.Property<int>("BillType")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsCancelled")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("IssuedAt")
                         .HasColumnType("datetime2");
 
@@ -89,28 +92,32 @@ namespace PointOfSaleApp.Data.Migrations
                         {
                             Id = 1,
                             BillType = 0,
-                            IssuedAt = new DateTime(2021, 1, 23, 9, 8, 25, 867, DateTimeKind.Local).AddTicks(7627),
+                            IsCancelled = false,
+                            IssuedAt = new DateTime(2021, 1, 24, 14, 1, 9, 957, DateTimeKind.Local).AddTicks(2403),
                             Price = 199.99m
                         },
                         new
                         {
                             Id = 2,
                             BillType = 0,
-                            IssuedAt = new DateTime(2021, 1, 23, 9, 8, 25, 874, DateTimeKind.Local).AddTicks(4133),
+                            IsCancelled = false,
+                            IssuedAt = new DateTime(2021, 1, 24, 14, 1, 9, 962, DateTimeKind.Local).AddTicks(3549),
                             Price = 14.99m
                         },
                         new
                         {
                             Id = 3,
                             BillType = 1,
-                            IssuedAt = new DateTime(2021, 1, 23, 9, 8, 25, 874, DateTimeKind.Local).AddTicks(4175),
+                            IsCancelled = false,
+                            IssuedAt = new DateTime(2021, 1, 24, 14, 1, 9, 962, DateTimeKind.Local).AddTicks(3590),
                             Price = 99.99m
                         },
                         new
                         {
                             Id = 4,
                             BillType = 2,
-                            IssuedAt = new DateTime(2021, 1, 23, 9, 8, 25, 874, DateTimeKind.Local).AddTicks(4181),
+                            IsCancelled = false,
+                            IssuedAt = new DateTime(2021, 1, 24, 14, 1, 9, 962, DateTimeKind.Local).AddTicks(3595),
                             Price = 100.59m
                         });
                 });
@@ -355,13 +362,13 @@ namespace PointOfSaleApp.Data.Migrations
                         {
                             Id = 1,
                             BillId = 1,
-                            PickupTime = new DateTime(2021, 1, 23, 11, 23, 25, 874, DateTimeKind.Local).AddTicks(7073)
+                            PickupTime = new DateTime(2021, 1, 24, 16, 16, 9, 962, DateTimeKind.Local).AddTicks(6498)
                         },
                         new
                         {
                             Id = 2,
                             BillId = 2,
-                            PickupTime = new DateTime(2021, 2, 2, 9, 8, 25, 874, DateTimeKind.Local).AddTicks(7701)
+                            PickupTime = new DateTime(2021, 2, 3, 14, 1, 9, 962, DateTimeKind.Local).AddTicks(7142)
                         });
                 });
 
@@ -427,7 +434,7 @@ namespace PointOfSaleApp.Data.Migrations
                             Id = 1,
                             BillId = 3,
                             EmployeeId = 1,
-                            PickupTime = new DateTime(2021, 1, 23, 9, 53, 25, 874, DateTimeKind.Local).AddTicks(9977)
+                            PickupTime = new DateTime(2021, 1, 24, 14, 46, 9, 962, DateTimeKind.Local).AddTicks(9374)
                         });
                 });
 
@@ -472,7 +479,7 @@ namespace PointOfSaleApp.Data.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsCancelled")
+                    b.Property<bool>("IsTerminated")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -489,7 +496,7 @@ namespace PointOfSaleApp.Data.Migrations
                             Id = 1,
                             BillId = 4,
                             CustomerId = 1,
-                            IsCancelled = false
+                            IsTerminated = false
                         });
                 });
 

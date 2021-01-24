@@ -15,6 +15,7 @@ namespace PointOfSaleApp.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IssuedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsCancelled = table.Column<bool>(type: "bit", nullable: false),
                     BillType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -112,7 +113,7 @@ namespace PointOfSaleApp.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IsCancelled = table.Column<bool>(type: "bit", nullable: false),
+                    IsTerminated = table.Column<bool>(type: "bit", nullable: false),
                     BillId = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -274,13 +275,13 @@ namespace PointOfSaleApp.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Bills",
-                columns: new[] { "Id", "BillType", "IssuedAt", "Price" },
+                columns: new[] { "Id", "BillType", "IsCancelled", "IssuedAt", "Price" },
                 values: new object[,]
                 {
-                    { 1, 0, new DateTime(2021, 1, 23, 9, 8, 25, 867, DateTimeKind.Local).AddTicks(7627), 199.99m },
-                    { 2, 0, new DateTime(2021, 1, 23, 9, 8, 25, 874, DateTimeKind.Local).AddTicks(4133), 14.99m },
-                    { 3, 1, new DateTime(2021, 1, 23, 9, 8, 25, 874, DateTimeKind.Local).AddTicks(4175), 99.99m },
-                    { 4, 2, new DateTime(2021, 1, 23, 9, 8, 25, 874, DateTimeKind.Local).AddTicks(4181), 100.59m }
+                    { 1, 0, false, new DateTime(2021, 1, 24, 14, 1, 9, 957, DateTimeKind.Local).AddTicks(2403), 199.99m },
+                    { 2, 0, false, new DateTime(2021, 1, 24, 14, 1, 9, 962, DateTimeKind.Local).AddTicks(3549), 14.99m },
+                    { 3, 1, false, new DateTime(2021, 1, 24, 14, 1, 9, 962, DateTimeKind.Local).AddTicks(3590), 99.99m },
+                    { 4, 2, false, new DateTime(2021, 1, 24, 14, 1, 9, 962, DateTimeKind.Local).AddTicks(3595), 100.59m }
                 });
 
             migrationBuilder.InsertData(
@@ -330,14 +331,14 @@ namespace PointOfSaleApp.Data.Migrations
                 columns: new[] { "Id", "BillId", "PickupTime" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2021, 1, 23, 11, 23, 25, 874, DateTimeKind.Local).AddTicks(7073) },
-                    { 2, 2, new DateTime(2021, 2, 2, 9, 8, 25, 874, DateTimeKind.Local).AddTicks(7701) }
+                    { 1, 1, new DateTime(2021, 1, 24, 16, 16, 9, 962, DateTimeKind.Local).AddTicks(6498) },
+                    { 2, 2, new DateTime(2021, 2, 3, 14, 1, 9, 962, DateTimeKind.Local).AddTicks(7142) }
                 });
 
             migrationBuilder.InsertData(
                 table: "ServiceBills",
                 columns: new[] { "Id", "BillId", "EmployeeId", "PickupTime" },
-                values: new object[] { 1, 3, 1, new DateTime(2021, 1, 23, 9, 53, 25, 874, DateTimeKind.Local).AddTicks(9977) });
+                values: new object[] { 1, 3, 1, new DateTime(2021, 1, 24, 14, 46, 9, 962, DateTimeKind.Local).AddTicks(9374) });
 
             migrationBuilder.InsertData(
                 table: "Services",
@@ -346,7 +347,7 @@ namespace PointOfSaleApp.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "SubscriptionBills",
-                columns: new[] { "Id", "BillId", "CustomerId", "IsCancelled" },
+                columns: new[] { "Id", "BillId", "CustomerId", "IsTerminated" },
                 values: new object[] { 1, 4, 1, false });
 
             migrationBuilder.InsertData(

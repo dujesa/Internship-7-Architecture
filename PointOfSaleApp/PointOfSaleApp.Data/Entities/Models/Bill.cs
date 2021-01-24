@@ -10,6 +10,7 @@ namespace PointOfSaleApp.Data.Entities.Models
         public int Id { get; set; }
         public DateTime IssuedAt { get; set; }
         public decimal Price { get; set; }
+        public bool IsCancelled { get; set; } = false;
         public BillType BillType { get; set; }
 
         public ICollection<OneOffBill> OneOffBills { get; set; }
