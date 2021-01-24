@@ -18,7 +18,7 @@ namespace PointOfSaleApp.Presentation.Factories
         {
             var actions = new List<IAction>
             {
-                new IssueNewBillAction(RepositoryFactory.GetRepository<BillRepository>(), RepositoryFactory.GetRepository<OfferRepository>()),
+                new IssueNewBillAction(RepositoryFactory.GetRepository<BillRepository>(), RepositoryFactory.GetRepository<BillItemRepository>(), RepositoryFactory.GetRepository<OfferRepository>()),
 
                 new ExitMenuAction()
             };

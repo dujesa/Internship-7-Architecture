@@ -17,6 +17,6 @@ namespace PointOfSaleApp.Data.Entities.Models
         public ICollection<ServiceBill> ServiceBills { get; set; }
         public ICollection<SubscriptionBill> SubscriptionBills { get; set; }
 
-        public ICollection<BillItem> BillItems { get; set; }
+        public ICollection<BillItem> BillItems { get; set; } = new List<BillItem>();
     }
 }

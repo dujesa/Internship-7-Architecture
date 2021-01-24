@@ -53,5 +53,15 @@ namespace PointOfSaleApp.Presentation.Helpers
 
             return true;
         }
+
+        public static bool ConfirmAction(string message) 
+        {
+            Console.WriteLine(message);
+            Console.WriteLine("\n('yes' to confirm)");
+            var isInputted = ConsoleReader.IsLineRead(out string input);
+
+            return isInputted && (input.Equals("yes") || input.Equals("Yes"));
+        }
+
     }
 }

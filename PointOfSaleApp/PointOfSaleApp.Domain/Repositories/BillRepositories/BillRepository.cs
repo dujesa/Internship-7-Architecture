@@ -13,9 +13,8 @@ namespace PointOfSaleApp.Domain.Repositories.BillRepositories
         public BillRepository(PointOfSaleDbContext dbContext) : base(dbContext)
         {
         }
-        public (ResponseResultType Result, string Message) CreateNew()
+        public (ResponseResultType Response, Bill Bill) CreateNew()
         {
-
             var bill = new Bill
             {
                 IssuedAt = DateTime.Now,
@@ -23,11 +22,11 @@ namespace PointOfSaleApp.Domain.Repositories.BillRepositories
             };
 
             DbContext.Bills.Add(bill);
-            var result = SaveChanges();
+            
+            var response = SaveChanges();
 
-            return (result == ResponseResultType.Success) 
-                ? (result, "Bill has been successfully issued.") 
-                : (result, "No changes made, no new offer added.");
+            return (response, bill);
+
         }
         /*if (bill.Price < 0)
     return (ResponseResultType.ValidationError, "Error related to bill price, cannot be price lower than zero!");
