@@ -1,4 +1,5 @@
-﻿using PointOfSaleApp.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PointOfSaleApp.Data.Entities;
 using PointOfSaleApp.Data.Entities.Models;
 using PointOfSaleApp.Domain.Enums;
 using System;
@@ -53,6 +54,15 @@ namespace PointOfSaleApp.Domain.Repositories.BillRepositories
             billItem.Quantity += additionalQuantity;
 
             return SaveChanges();
+        }
+
+        public ICollection<BillItem> GetAllByBillId(int billId)
+        {
+            return DbContext.BillItems
+                .Include(bi => bi.Offer)
+                .Include(bi => bi.Bill)
+                .Where(bi => bi.BillId == billId)
+                .ToList();
         }
     }
 }

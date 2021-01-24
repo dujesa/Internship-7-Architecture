@@ -46,7 +46,7 @@ namespace PointOfSaleApp.Presentation.Actions.BillActions
             while (!closeBill)
             {
                 Console.Clear();
-                if (!ConsoleReader.ConfirmAction("Do you wanna add new item to bill?"))
+                if (!ConsoleReader.ConfirmAction("Does your customer wanna add more items to bill?"))
                 {
                     closeBill = true;
                     break;
@@ -62,6 +62,9 @@ namespace PointOfSaleApp.Presentation.Actions.BillActions
 
             //Console.WriteLine(message);
             //DISPLAY BILL
+            var billItems = _billItemRepository.GetAllByBillId(newBill.Id);
+            ConsolePrinter.DisplayBillWithItems(billItems);
+
             Console.WriteLine("\nPress enter to continue...");
             Console.ReadLine();
             Console.Clear();

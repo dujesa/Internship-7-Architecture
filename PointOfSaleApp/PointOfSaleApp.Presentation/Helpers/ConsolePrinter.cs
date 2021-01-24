@@ -108,6 +108,36 @@ namespace PointOfSaleApp.Presentation.Helpers
             Console.WriteLine($"Price per day: {subscription.PricePerDay}\n");
         }
 
+        public static void DisplayBillWithItems(ICollection<BillItem> billItems)
+        {
+            var bill = billItems.First().Bill;
+
+            if (billItems.Count == 0 || bill == null)
+            {
+                Console.WriteLine("Bill does not contain any item.");
+
+                return;
+            }
+
+            Console.Clear();
+            Console.WriteLine($"" +
+                $"----------Bill id: {bill.Id}----------\n" +
+                $"Issue time: {bill.IssuedAt}\n" +
+                $"Bill type: {bill.BillType}\n" +
+                $"Items:\n");
+
+            foreach(var item in bill.BillItems)
+            {
+                Console.WriteLine($"" +
+                    $"\t{item.Offer.Name}\n" +
+                    $"\t\tQuantity: {item.Quantity}\n");
+            }
+
+            Console.WriteLine($"------------------------------\n" +
+                $"Total price: {bill.Price}\n" +
+                $"------------------------------\n");
+        }
+
         public static void ClearScreenWithSleep()
         {
             Thread.Sleep(1000);

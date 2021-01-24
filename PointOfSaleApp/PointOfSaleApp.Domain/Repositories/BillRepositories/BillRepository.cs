@@ -1,4 +1,5 @@
-﻿using PointOfSaleApp.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PointOfSaleApp.Data.Entities;
 using PointOfSaleApp.Data.Entities.Models;
 using PointOfSaleApp.Domain.Enums;
 using System;
