@@ -1,6 +1,7 @@
 ﻿using PointOfSaleApp.Data.Entities.Models;
 using PointOfSaleApp.Data.Enums;
 using PointOfSaleApp.Domain.Enums;
+using PointOfSaleApp.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,7 +67,7 @@ namespace PointOfSaleApp.Presentation.Helpers
                 DisplayService(service);
         }
 
-        internal static void PrintOffers(ICollection<Offer> offers)
+        public static void PrintOffers(ICollection<Offer> offers)
         {
             foreach (var offer in offers)
                 PrintOffer(offer);

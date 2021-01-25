@@ -38,7 +38,6 @@ namespace PointOfSaleApp.Presentation.Actions.BillActions
             if (!ConsoleReader.ConfirmAction("Do you wanna issue new bill?"))
                 return;
 
-            //todo: napravi factory
             (var billCreationResponse, var newBill) = _billRepository.CreateNew();
 
             if (billCreationResponse != ResponseResultType.Success)
@@ -84,8 +83,12 @@ namespace PointOfSaleApp.Presentation.Actions.BillActions
             else if (isClosingRequested)
                 ClosingBillHandler.Handle(newBill, Employee);
             else
+            {
                 HandleCancellingBill(newBill);
-            
+
+                return;
+            }
+
             //validate that item is not 0 qty - remove it
 
             var billItems = _billItemRepository.GetAllByBillId(newBill.Id);
@@ -106,6 +109,11 @@ namespace PointOfSaleApp.Presentation.Actions.BillActions
         private void HandleCancellingBill(Bill bill)
         {
             _billRepository.CancelById(bill.Id);
+
+            Console.WriteLine("\nBill cancelled...");
+            Console.WriteLine("\nPress enter to continue...");
+            Console.ReadLine();
+            Console.Clear();
         }
 
         private bool HandleAddingBillItem(Bill bill)

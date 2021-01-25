@@ -31,8 +31,17 @@ namespace PointOfSaleApp.Domain.Repositories.BillRepositories
             return (response, bill);
 
         }
+
+        public decimal SumProfitByYear(int year)
+        {
+            return DbContext.Bills
+                .Where(b => b.IssuedAt.Year == year)
+                .Select(b => b.Price)
+                .Sum();
+        }
+
         /*if (bill.Price < 0)
-    return (ResponseResultType.ValidationError, "Error related to bill price, cannot be price lower than zero!");
+return (ResponseResultType.ValidationError, "Error related to bill price, cannot be price lower than zero!");
 */
         /*if (bill.BillItems.Count == 0)
             return (ResponseResultType.ValidationError, "Error, bill must contain at least one item on it to be issued!");
@@ -58,6 +67,7 @@ namespace PointOfSaleApp.Domain.Repositories.BillRepositories
                 return ResponseResultType.NotFound;
 
             cancelingBill.IsCancelled = true;
+            cancelingBill.BillType = BillType.Undisclosed;
 
             return SaveChanges();
         }

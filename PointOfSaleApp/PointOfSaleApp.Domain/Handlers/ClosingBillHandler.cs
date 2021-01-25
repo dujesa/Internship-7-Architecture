@@ -157,7 +157,6 @@ namespace PointOfSaleApp.Domain.Handlers
                 if (subscription == null)
                     return ResponseResultType.NotFound;
 
-
                 if (isMonthly)
                     endTime = endTime.AddMonths(1);
                 else
