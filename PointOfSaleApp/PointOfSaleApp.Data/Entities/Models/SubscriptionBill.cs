@@ -8,6 +8,7 @@ namespace PointOfSaleApp.Data.Entities.Models
     {
         public int Id { get; set; }
         public bool IsTerminated { get; set; } = false;
+        public DateTime EndTime { get; set; }
 
         public int BillId { get; set; }
         public Bill Bill { get; set; }

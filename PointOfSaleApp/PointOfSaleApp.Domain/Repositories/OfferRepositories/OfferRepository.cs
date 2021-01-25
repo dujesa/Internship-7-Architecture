@@ -89,6 +89,16 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
             return DbContext.Offers.Find(id);
         }
 
+        public Offer FetchById(int id)
+        {
+            return DbContext.Offers
+                .Include(o => o.Articles)
+                .Include(o => o.Services)
+                .Include(o => o.Subscriptions)
+                .Where(o => o.Id == id)
+                .FirstOrDefault();
+        }
+
         public ResponseResultType Delete(int offerId)
         {
             var offer = DbContext.Offers.Find(offerId);

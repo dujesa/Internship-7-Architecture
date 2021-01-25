@@ -1,4 +1,5 @@
 ﻿using PointOfSaleApp.Data.Entities.Models;
+using PointOfSaleApp.Data.Enums;
 using PointOfSaleApp.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -138,9 +139,41 @@ namespace PointOfSaleApp.Presentation.Helpers
                 $"------------------------------\n");
         }
 
-        public static void ClearScreenWithSleep()
+        public static void DisplayBillWithItems(ICollection<BillItem> billItems, DateTime pickupTime)
         {
-            Thread.Sleep(1000);
+            var bill = billItems.First().Bill;
+
+            if (billItems.Count == 0 || bill == null)
+            {
+                Console.WriteLine("Bill does not contain any item.");
+
+                return;
+            }
+
+            Console.Clear();
+            Console.WriteLine($"" +
+                $"----------Bill id: {bill.Id}----------\n" +
+                $"Issue time: {bill.IssuedAt}\n" +
+                $"Bill type: {bill.BillType}\n" +
+                $"Items:\n");
+
+            foreach (var item in bill.BillItems)
+            {
+                Console.WriteLine($"" +
+                    $"\t{item.Offer.Name}\n" +
+                    $"\t\tQuantity: {item.Quantity}\n");
+            }
+
+            Console.WriteLine($"------------------------------\n" +
+                $"Pickup time: {pickupTime}\n" +
+                $"------------------------------\n" +
+                $"Total price: {bill.Price}\n" +
+                $"------------------------------\n");
+        }
+
+        public static void ClearScreenWithSleep(int sleepMiliseconds = 1000)
+        {
+            Thread.Sleep(sleepMiliseconds);
             Console.Clear();
         }
 

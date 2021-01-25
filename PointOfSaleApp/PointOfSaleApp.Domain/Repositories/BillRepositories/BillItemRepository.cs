@@ -44,16 +44,27 @@ namespace PointOfSaleApp.Domain.Repositories.BillRepositories
                 .FirstOrDefault();
         }
 
-        public ResponseResultType IncreaseQuantityByIdFor(int id, int additionalQuantity)
+        public (ResponseResultType Respone, int IncreasedQuantity) IncreaseQuantityByIdFor(int id, int additionalQuantity)
         {
-            var billItem = GetById(id);
+            var billItem = DbContext.BillItems
+                .Include(bi => bi.Offer)
+                .Where(bi => bi.Id == id)
+                .FirstOrDefault();
 
-            if (billItem == null)
-                return ResponseResultType.NotFound;
+            var offer = billItem.Offer;
 
-            billItem.Quantity += additionalQuantity;
+            if (billItem == null || offer == null)
+                return (ResponseResultType.NotFound, 0);
 
-            return SaveChanges();
+            var increasingQuantity = (additionalQuantity < offer.AvailableQuantity)
+                ? additionalQuantity
+                : offer.AvailableQuantity;
+
+            billItem.Quantity += increasingQuantity;
+            offer.AvailableQuantity -= increasingQuantity;
+            offer.SoldQuantity += increasingQuantity;
+
+            return (SaveChanges(), increasingQuantity);
         }
 
         public ICollection<BillItem> GetAllByBillId(int billId)
@@ -63,6 +74,15 @@ namespace PointOfSaleApp.Domain.Repositories.BillRepositories
                 .Include(bi => bi.Bill)
                 .Where(bi => bi.BillId == billId)
                 .ToList();
+        }
+
+        public int CountByBillId(int id)
+        {
+            return DbContext.BillItems
+                .Include(bi => bi.Offer)
+                .Include(bi => bi.Bill)
+                .Where(bi => bi.BillId == id)
+                .Count();
         }
     }
 }

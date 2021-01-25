@@ -1,4 +1,5 @@
-﻿using PointOfSaleApp.Domain.Factories;
+﻿using PointOfSaleApp.Data.Entities.Models;
+using PointOfSaleApp.Domain.Factories;
 using PointOfSaleApp.Domain.Repositories.BillRepositories;
 using PointOfSaleApp.Domain.Repositories.OfferRepositories;
 using PointOfSaleApp.Presentation.Abstractions;
@@ -14,11 +15,11 @@ namespace PointOfSaleApp.Presentation.Factories
 {
     public class BillActionsFactory
     {
-        public static BillParentActions GetBillParentActions()
+        public static BillParentActions GetBillParentActions(Employee employee)
         {
             var actions = new List<IAction>
             {
-                new IssueNewBillAction(RepositoryFactory.GetRepository<BillRepository>(), RepositoryFactory.GetRepository<BillItemRepository>(), RepositoryFactory.GetRepository<OfferRepository>()),
+                new IssueNewBillAction(employee, RepositoryFactory.GetRepository<BillRepository>(), RepositoryFactory.GetRepository<BillItemRepository>(), RepositoryFactory.GetRepository<OfferRepository>()),
 
                 new ExitMenuAction()
             };

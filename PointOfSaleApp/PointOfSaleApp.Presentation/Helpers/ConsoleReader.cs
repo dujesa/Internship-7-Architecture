@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PointOfSaleApp.Data.Entities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -63,5 +64,25 @@ namespace PointOfSaleApp.Presentation.Helpers
             return isInputted && (input.Equals("yes") || input.Equals("Yes"));
         }
 
+        public static Customer ProvideCustomer()
+        {
+            var customer = new Customer();
+
+            Console.Clear();
+            Console.WriteLine($"-----Customer data form-----\n" +
+                $"Enter subscriber first name:");
+            customer.FirstName = Console.ReadLine();
+
+            Console.WriteLine($"Enter subscriber last name:");
+            customer.FirstName = Console.ReadLine();
+
+            Console.WriteLine($"Enter subscriber PIN:");
+            customer.PIN = Console.ReadLine();
+
+            Console.WriteLine($"Enter subscriber credit card number:");
+            customer.CreditCardNumber = Console.ReadLine();
+
+            return customer;
+        }
     }
 }

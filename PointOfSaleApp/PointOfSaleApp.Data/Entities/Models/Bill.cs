@@ -11,11 +11,11 @@ namespace PointOfSaleApp.Data.Entities.Models
         public DateTime IssuedAt { get; set; }
         public decimal Price { get; set; }
         public bool IsCancelled { get; set; } = false;
-        public BillType BillType { get; set; }
+        public BillType BillType { get; set; } = BillType.Undisclosed;
 
-        public ICollection<OneOffBill> OneOffBills { get; set; }
-        public ICollection<ServiceBill> ServiceBills { get; set; }
-        public ICollection<SubscriptionBill> SubscriptionBills { get; set; }
+        public ICollection<OneOffBill> OneOffBills { get; set; } = new List<OneOffBill>();
+        public ICollection<ServiceBill> ServiceBills { get; set; } = new List<ServiceBill>();
+        public ICollection<SubscriptionBill> SubscriptionBills { get; set; } = new List<SubscriptionBill>();
 
         public ICollection<BillItem> BillItems { get; set; } = new List<BillItem>();
     }

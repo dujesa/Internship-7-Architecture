@@ -152,13 +152,17 @@ namespace PointOfSaleApp.Data.Seeds
                     {
                         Id = 1,
                         BillId = 1,
-                        PickupTime = DateTime.Now.AddHours(2d).AddMinutes(15d)
+                        PickupTime = DateTime.Now.AddHours(2d).AddMinutes(15d),
+                        EmployeeId = 1
+
                     },
                     new OneOffBill
                     {
                         Id = 2,
                         BillId = 2,
-                        PickupTime = DateTime.Now.AddDays(10d)
+                        PickupTime = DateTime.Now.AddDays(10d),
+                        EmployeeId = 1
+
                     }
                 });
 
@@ -182,6 +186,7 @@ namespace PointOfSaleApp.Data.Seeds
                         Id = 1,
                         BillId = 4,
                         CustomerId = 1,
+                        EndTime = DateTime.Now.AddYears(1)
                     }
                 });
             

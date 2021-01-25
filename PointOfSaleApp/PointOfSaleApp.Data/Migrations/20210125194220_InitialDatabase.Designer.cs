@@ -10,7 +10,7 @@ using PointOfSaleApp.Data.Entities;
 namespace PointOfSaleApp.Data.Migrations
 {
     [DbContext(typeof(PointOfSaleDbContext))]
-    [Migration("20210124130110_InitialDatabase")]
+    [Migration("20210125194220_InitialDatabase")]
     partial class InitialDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,7 +93,7 @@ namespace PointOfSaleApp.Data.Migrations
                             Id = 1,
                             BillType = 0,
                             IsCancelled = false,
-                            IssuedAt = new DateTime(2021, 1, 24, 14, 1, 9, 957, DateTimeKind.Local).AddTicks(2403),
+                            IssuedAt = new DateTime(2021, 1, 25, 20, 42, 17, 485, DateTimeKind.Local).AddTicks(7682),
                             Price = 199.99m
                         },
                         new
@@ -101,7 +101,7 @@ namespace PointOfSaleApp.Data.Migrations
                             Id = 2,
                             BillType = 0,
                             IsCancelled = false,
-                            IssuedAt = new DateTime(2021, 1, 24, 14, 1, 9, 962, DateTimeKind.Local).AddTicks(3549),
+                            IssuedAt = new DateTime(2021, 1, 25, 20, 42, 17, 498, DateTimeKind.Local).AddTicks(2968),
                             Price = 14.99m
                         },
                         new
@@ -109,7 +109,7 @@ namespace PointOfSaleApp.Data.Migrations
                             Id = 3,
                             BillType = 1,
                             IsCancelled = false,
-                            IssuedAt = new DateTime(2021, 1, 24, 14, 1, 9, 962, DateTimeKind.Local).AddTicks(3590),
+                            IssuedAt = new DateTime(2021, 1, 25, 20, 42, 17, 498, DateTimeKind.Local).AddTicks(3110),
                             Price = 99.99m
                         },
                         new
@@ -117,7 +117,7 @@ namespace PointOfSaleApp.Data.Migrations
                             Id = 4,
                             BillType = 2,
                             IsCancelled = false,
-                            IssuedAt = new DateTime(2021, 1, 24, 14, 1, 9, 962, DateTimeKind.Local).AddTicks(3595),
+                            IssuedAt = new DateTime(2021, 1, 25, 20, 42, 17, 498, DateTimeKind.Local).AddTicks(3135),
                             Price = 100.59m
                         });
                 });
@@ -348,12 +348,17 @@ namespace PointOfSaleApp.Data.Migrations
                     b.Property<int>("BillId")
                         .HasColumnType("int");
 
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("PickupTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BillId");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("OneOffBills");
 
@@ -362,13 +367,15 @@ namespace PointOfSaleApp.Data.Migrations
                         {
                             Id = 1,
                             BillId = 1,
-                            PickupTime = new DateTime(2021, 1, 24, 16, 16, 9, 962, DateTimeKind.Local).AddTicks(6498)
+                            EmployeeId = 1,
+                            PickupTime = new DateTime(2021, 1, 25, 22, 57, 17, 499, DateTimeKind.Local).AddTicks(2745)
                         },
                         new
                         {
                             Id = 2,
                             BillId = 2,
-                            PickupTime = new DateTime(2021, 2, 3, 14, 1, 9, 962, DateTimeKind.Local).AddTicks(7142)
+                            EmployeeId = 1,
+                            PickupTime = new DateTime(2021, 2, 4, 20, 42, 17, 499, DateTimeKind.Local).AddTicks(7064)
                         });
                 });
 
@@ -434,7 +441,7 @@ namespace PointOfSaleApp.Data.Migrations
                             Id = 1,
                             BillId = 3,
                             EmployeeId = 1,
-                            PickupTime = new DateTime(2021, 1, 24, 14, 46, 9, 962, DateTimeKind.Local).AddTicks(9374)
+                            PickupTime = new DateTime(2021, 1, 25, 21, 27, 17, 500, DateTimeKind.Local).AddTicks(4921)
                         });
                 });
 
@@ -479,6 +486,9 @@ namespace PointOfSaleApp.Data.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsTerminated")
                         .HasColumnType("bit");
 
@@ -496,6 +506,7 @@ namespace PointOfSaleApp.Data.Migrations
                             Id = 1,
                             BillId = 4,
                             CustomerId = 1,
+                            EndTime = new DateTime(2022, 1, 25, 20, 42, 17, 501, DateTimeKind.Local).AddTicks(8606),
                             IsTerminated = false
                         });
                 });
@@ -553,7 +564,15 @@ namespace PointOfSaleApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("PointOfSaleApp.Data.Entities.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Bill");
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("PointOfSaleApp.Data.Entities.Models.Service", b =>

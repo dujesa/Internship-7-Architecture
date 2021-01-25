@@ -8,6 +8,7 @@ namespace PointOfSaleApp.Data.Enums
     {
         OneOffBill,
         ServiceBill,
-        SubscriptionBill
+        SubscriptionBill,
+        Undisclosed,
     }
 }

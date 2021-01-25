@@ -1,5 +1,7 @@
 ﻿using PointOfSaleApp.Data.Entities.Models;
+using PointOfSaleApp.Data.Enums;
 using PointOfSaleApp.Domain.Enums;
+using PointOfSaleApp.Domain.Handlers;
 using PointOfSaleApp.Domain.Repositories.BillRepositories;
 using PointOfSaleApp.Domain.Repositories.OfferRepositories;
 using PointOfSaleApp.Presentation.Abstractions;
@@ -18,11 +20,14 @@ namespace PointOfSaleApp.Presentation.Actions.BillActions
         private readonly BillItemRepository _billItemRepository;
         private readonly OfferRepository _offerRepository;
 
+        public Employee Employee { get; set; }
+
         public int MenuIndex { get; set; }
         public string Label { get; set; } = "Issue new bill";
 
-        public IssueNewBillAction(BillRepository billRepository, BillItemRepository billItemRepository, OfferRepository offerRepository)
+        public IssueNewBillAction(Employee employee, BillRepository billRepository, BillItemRepository billItemRepository, OfferRepository offerRepository)
         {
+            Employee = employee;
             _billRepository = billRepository;
             _billItemRepository = billItemRepository;
             _offerRepository = offerRepository;
@@ -42,6 +47,9 @@ namespace PointOfSaleApp.Presentation.Actions.BillActions
             }
 
             var closeBill = false;
+            var isCustomerDataNeeded = false;
+            var isMonthlySubscription = false;
+            Customer customer = null;
 
             while (!closeBill)
             {
@@ -53,33 +61,71 @@ namespace PointOfSaleApp.Presentation.Actions.BillActions
                 }
 
                 Console.Clear();
-                HandleAddingBillItem(newBill);
+                isCustomerDataNeeded = HandleAddingBillItem(newBill);
+
+                if (isCustomerDataNeeded)
+                {
+                    customer = ConsoleReader.ProvideCustomer();
+                    isMonthlySubscription = ConsoleReader.ConfirmAction("" +
+                        "Do you wanna monthly subscription?\n" +
+                        "['yes' - monthly][leave blank - yearly]");
+
+                    break;
+                }
             }
 
-            //ask for closing bill or cancelling it
-            //HandleCancellingBill
-            //HandleClosingBill
+            var isClosingRequested = ConsoleReader.ConfirmAction($"" +
+                $"Do you want to close bill?\n" +
+                $"['yes' - close bill]" +
+                $"[Any other input - cancel bill]");
 
-            //Console.WriteLine(message);
-            //DISPLAY BILL
+            if (isClosingRequested && customer is Customer)
+                ClosingBillHandler.Handle(newBill, customer, isMonthlySubscription);
+            else if (isClosingRequested)
+                ClosingBillHandler.Handle(newBill, Employee);
+            else
+                HandleCancellingBill(newBill);
+            
+            //validate that item is not 0 qty - remove it
+
             var billItems = _billItemRepository.GetAllByBillId(newBill.Id);
-            ConsolePrinter.DisplayBillWithItems(billItems);
+            var billPickupTime = _billRepository.GetPickupTimeById(newBill.Id);
+
+
+            if (billPickupTime == null)
+                ConsolePrinter.DisplayBillWithItems(billItems);
+            else
+                ConsolePrinter.DisplayBillWithItems(billItems, (DateTime)billPickupTime);
+
 
             Console.WriteLine("\nPress enter to continue...");
             Console.ReadLine();
             Console.Clear();
         }
-        
-        private void HandleAddingBillItem(Bill bill)
+
+        private void HandleCancellingBill(Bill bill)
+        {
+            _billRepository.CancelById(bill.Id);
+        }
+
+        private bool HandleAddingBillItem(Bill bill)
         {
             var offers = _offerRepository.GetAll();
-            
-            Console.WriteLine($"List of all offers:");
+            var billItemCount = _billItemRepository.CountByBillId(bill.Id);
+
+            if (billItemCount > 0)
+            {
+                offers = offers
+                    .Where(o => o.OfferType != OfferType.Subscription)
+                    .ToList();
+            }
+
+            Console.WriteLine($"List of all available offers:");
             ConsolePrinter.PrintOffers(offers);
 
             Console.WriteLine("\n Type offer id(number) or any other key for exit");
             var isExitInputted = ConsoleReader.IsExitReadOnNumberInput(out var offerId);
-            if (isExitInputted) return;
+            if (isExitInputted) return false;
 
             Console.Clear();
 
@@ -89,7 +135,15 @@ namespace PointOfSaleApp.Presentation.Actions.BillActions
                 Console.WriteLine("Offer not found, maybe you have inputted wrong id.");
                 ConsolePrinter.ClearScreenWithSleep();
                 
-                return;
+                return false;
+            }
+
+            if (addingOffer.OfferType == OfferType.Subscription && bill.BillItems.Count > 0)
+            {
+                Console.WriteLine("You have selected subscription offer and only one sub can be added to single bill!");
+                ConsolePrinter.ClearScreenWithSleep();
+
+                return false;
             }
 
             var billItem = _billItemRepository.GetByOfferIdAndBillId(offerId, bill.Id);
@@ -107,8 +161,18 @@ namespace PointOfSaleApp.Presentation.Actions.BillActions
                 Console.WriteLine("505 - Error occurred in fetching of bill item.");
             }
 
-            var quantityEditResponse = _billItemRepository.IncreaseQuantityByIdFor(billItem.Id, 1);
+            (var quantityEditResponse, var increasedQuantity)= _billItemRepository.IncreaseQuantityByIdFor(billItem.Id, 1);
             ConsolePrinter.DisplayResponse(quantityEditResponse);
+
+            if(quantityEditResponse == ResponseResultType.Success)
+                Console.WriteLine($"\n\nBill item: {addingOffer.Name}" +
+                    $"\nQuantity increased for {increasedQuantity}, still available qty. {addingOffer.AvailableQuantity}");
+
+            ConsolePrinter.ClearScreenWithSleep(3000);
+
+            return addingOffer.OfferType == OfferType.Subscription;
         }
+
+
     }
 }
