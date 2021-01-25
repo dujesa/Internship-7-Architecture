@@ -5,9 +5,9 @@ using System.Text;
 
 namespace PointOfSaleApp.Domain.Models
 {
-    public class ActiveSubscription
+    public class BestSeller
     {
-        public Offer Offer { get; set; }
+        public int OfferId { get; set; }
         public int Count { get; set; }
     }
 }

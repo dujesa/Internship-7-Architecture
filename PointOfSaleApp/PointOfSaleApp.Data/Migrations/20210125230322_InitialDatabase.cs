@@ -286,10 +286,10 @@ namespace PointOfSaleApp.Data.Migrations
                 columns: new[] { "Id", "BillType", "IsCancelled", "IssuedAt", "Price" },
                 values: new object[,]
                 {
-                    { 1, 0, false, new DateTime(2021, 1, 25, 20, 42, 17, 485, DateTimeKind.Local).AddTicks(7682), 199.99m },
-                    { 2, 0, false, new DateTime(2021, 1, 25, 20, 42, 17, 498, DateTimeKind.Local).AddTicks(2968), 14.99m },
-                    { 3, 1, false, new DateTime(2021, 1, 25, 20, 42, 17, 498, DateTimeKind.Local).AddTicks(3110), 99.99m },
-                    { 4, 2, false, new DateTime(2021, 1, 25, 20, 42, 17, 498, DateTimeKind.Local).AddTicks(3135), 100.59m }
+                    { 1, 0, false, new DateTime(2021, 1, 26, 0, 3, 21, 966, DateTimeKind.Local).AddTicks(9864), 199.99m },
+                    { 2, 0, false, new DateTime(2021, 1, 26, 0, 3, 21, 970, DateTimeKind.Local).AddTicks(7231), 14.99m },
+                    { 3, 1, false, new DateTime(2021, 1, 26, 0, 3, 21, 970, DateTimeKind.Local).AddTicks(7282), 99.99m },
+                    { 4, 2, false, new DateTime(2021, 1, 26, 0, 3, 21, 970, DateTimeKind.Local).AddTicks(7290), 100.59m }
                 });
 
             migrationBuilder.InsertData(
@@ -300,7 +300,11 @@ namespace PointOfSaleApp.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Employees",
                 columns: new[] { "Id", "DailyWorkingHours", "FirstName", "LastName", "LoginPassword", "PIN", "ServiceHoursToDo" },
-                values: new object[] { 1, 8, "Pero", "Perić", "dumptest", "23456", 0 });
+                values: new object[,]
+                {
+                    { 1, 8, "Pero", "Perić", "dumptest", "23456", 0 },
+                    { 2, 8, "Stipe", "Stipic", "test2", "74832", 0 }
+                });
 
             migrationBuilder.InsertData(
                 table: "OfferCategories",
@@ -339,14 +343,14 @@ namespace PointOfSaleApp.Data.Migrations
                 columns: new[] { "Id", "BillId", "EmployeeId", "PickupTime" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, new DateTime(2021, 1, 25, 22, 57, 17, 499, DateTimeKind.Local).AddTicks(2745) },
-                    { 2, 2, 1, new DateTime(2021, 2, 4, 20, 42, 17, 499, DateTimeKind.Local).AddTicks(7064) }
+                    { 1, 1, 1, new DateTime(2021, 1, 26, 2, 18, 21, 971, DateTimeKind.Local).AddTicks(404) },
+                    { 2, 2, 1, new DateTime(2021, 2, 5, 0, 3, 21, 971, DateTimeKind.Local).AddTicks(1681) }
                 });
 
             migrationBuilder.InsertData(
                 table: "ServiceBills",
                 columns: new[] { "Id", "BillId", "EmployeeId", "PickupTime" },
-                values: new object[] { 1, 3, 1, new DateTime(2021, 1, 25, 21, 27, 17, 500, DateTimeKind.Local).AddTicks(4921) });
+                values: new object[] { 1, 3, 1, new DateTime(2021, 1, 26, 0, 48, 21, 971, DateTimeKind.Local).AddTicks(4229) });
 
             migrationBuilder.InsertData(
                 table: "Services",
@@ -356,7 +360,7 @@ namespace PointOfSaleApp.Data.Migrations
             migrationBuilder.InsertData(
                 table: "SubscriptionBills",
                 columns: new[] { "Id", "BillId", "CustomerId", "EndTime", "IsTerminated" },
-                values: new object[] { 1, 4, 1, new DateTime(2022, 1, 25, 20, 42, 17, 501, DateTimeKind.Local).AddTicks(8606), false });
+                values: new object[] { 1, 4, 1, new DateTime(2022, 1, 26, 0, 3, 21, 971, DateTimeKind.Local).AddTicks(8423), false });
 
             migrationBuilder.InsertData(
                 table: "Subscriptions",

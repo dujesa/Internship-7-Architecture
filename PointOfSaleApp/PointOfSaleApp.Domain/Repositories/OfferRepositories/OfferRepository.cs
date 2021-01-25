@@ -2,6 +2,7 @@
 using PointOfSaleApp.Data.Entities;
 using PointOfSaleApp.Data.Entities.Models;
 using PointOfSaleApp.Domain.Enums;
+using PointOfSaleApp.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,34 @@ namespace PointOfSaleApp.Domain.Repositories.OfferRepositories
             var result = SaveChanges();
 
             return (result == ResponseResultType.Success) ? (result, "Offer has been successfully added.", offer) : (result, "No changes made, no new offer added.", null);
+        }
+
+        public ICollection<Offer> GetAllAvailableWithQuantityParameters(int comparingQuantity, bool isGreaterThanInputQty)
+        {
+            return (isGreaterThanInputQty)
+                ? DbContext.Offers
+                    .Where(o => o.AvailableQuantity > comparingQuantity)
+                    .ToList()
+                : DbContext.Offers
+                    .Where(o => o.AvailableQuantity < comparingQuantity)
+                    .ToList();
+        }
+
+        public ICollection<BestSeller> GetBestSellersByCount(int takeCount)
+        {
+            var bestSellers = DbContext.BillItems
+                .Include(bi => bi.Bill)
+                .Where(bi => bi.Bill.IsCancelled == false)
+                .GroupBy(bi => bi.OfferId)
+                .Select(bi => new BestSeller
+                {
+                    OfferId = bi.Key,
+                    Count = bi.Count()
+                })
+                .Take(takeCount)
+                .ToList();
+
+            return bestSellers.OrderByDescending(bs => bs.Count).ToList();
         }
 
         public ICollection<Offer> GetAvailable()

@@ -35,6 +35,15 @@ namespace PointOfSaleApp.Data.Seeds
                         LastName = "Perić",
                         LoginPassword = "dumptest",
                         DailyWorkingHours = 8,
+                    },
+                    new Employee
+                    {
+                        Id = 2,
+                        PIN = "74832",
+                        FirstName = "Stipe",
+                        LastName = "Stipic",
+                        LoginPassword = "test2",
+                        DailyWorkingHours = 8,
                     }
                 });
 

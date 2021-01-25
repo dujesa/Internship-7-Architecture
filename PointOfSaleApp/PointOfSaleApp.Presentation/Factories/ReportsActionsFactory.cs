@@ -1,5 +1,6 @@
 ﻿using PointOfSaleApp.Domain.Factories;
 using PointOfSaleApp.Domain.Repositories.BillRepositories;
+using PointOfSaleApp.Domain.Repositories.OfferRepositories;
 using PointOfSaleApp.Presentation.Abstractions;
 using PointOfSaleApp.Presentation.Actions;
 using PointOfSaleApp.Presentation.Actions.ReportsActions;
@@ -18,10 +19,10 @@ namespace PointOfSaleApp.Presentation.Factories
             var actions = new List<IAction>
             {
                 //new BillsReportAction(RepositoryFactory.GetRepository<BillRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
-                //new ArticlesByCategoryReportAction(RepositoryFactory.GetRepository<ServiceRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
+                //new CountSoldOffersByCategoryReportAction(RepositoryFactory.GetRepository<BillItemRepository>()),
                 new ActiveSubscriptionsReportAction(RepositoryFactory.GetRepository<SubscriptionBillRepository>()),
-                //new InventoryReportAction(RepositoryFactory.GetRepository<SubscriptionRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
-                //new BestSellingOffersReportAction(RepositoryFactory.GetRepository<SubscriptionRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
+                new InventoryReportAction(RepositoryFactory.GetRepository<OfferRepository>()),
+                new BestSellingOffersReportAction(RepositoryFactory.GetRepository<OfferRepository>()),
                 new AnnualProfitReportAction(RepositoryFactory.GetRepository<BillRepository>()),
 
                 new ExitMenuAction()
