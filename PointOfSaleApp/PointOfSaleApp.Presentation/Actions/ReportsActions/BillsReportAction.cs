@@ -51,11 +51,7 @@ namespace PointOfSaleApp.Presentation.Actions.ReportsActions
 
             foreach (var bill in bills)
             {
-                Console.WriteLine($"------Bill: {bill.Id}-----\n" +
-                    $"Issued at: {bill.IssuedAt}\n" +
-                    $"Price: {bill.Price}\n" +
-                    $"Bill type: {bill.BillType}\n" +
-                    $"---------------");
+                ConsolePrinter.DisplayBill(bill);    
             }
 
             Console.WriteLine();

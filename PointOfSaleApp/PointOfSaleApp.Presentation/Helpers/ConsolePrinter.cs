@@ -61,9 +61,13 @@ namespace PointOfSaleApp.Presentation.Helpers
                 DisplaySubscription(subscription);
         }
 
-        internal static void DisplayBill(Bill bill)
+        public static void DisplayBill(Bill bill)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"------Bill: {bill.Id}-----\n" +
+                    $"Issued at: {bill.IssuedAt}\n" +
+                    $"Price: {bill.Price}\n" +
+                    $"Bill type: {bill.BillType}\n" +
+                    $"---------------");
         }
 
         public static void PrintServices(ICollection<Service> services)
