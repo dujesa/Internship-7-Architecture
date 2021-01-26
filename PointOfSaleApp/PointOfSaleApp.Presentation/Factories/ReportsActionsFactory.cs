@@ -1,5 +1,6 @@
 ﻿using PointOfSaleApp.Domain.Factories;
 using PointOfSaleApp.Domain.Repositories.BillRepositories;
+using PointOfSaleApp.Domain.Repositories.OfferCategoryRepositories;
 using PointOfSaleApp.Domain.Repositories.OfferRepositories;
 using PointOfSaleApp.Presentation.Abstractions;
 using PointOfSaleApp.Presentation.Actions;
@@ -18,7 +19,7 @@ namespace PointOfSaleApp.Presentation.Factories
         {
             var actions = new List<IAction>
             {
-                //new BillsReportAction(RepositoryFactory.GetRepository<BillRepository>(RepositoryFactory.GetRepository<OfferRepository>())),
+                new BillsReportAction(RepositoryFactory.GetRepository<OfferCategoryRepository>(), RepositoryFactory.GetRepository<BillRepository>()),
                 //new CountSoldOffersByCategoryReportAction(RepositoryFactory.GetRepository<BillItemRepository>()),
                 new ActiveSubscriptionsReportAction(RepositoryFactory.GetRepository<SubscriptionBillRepository>()),
                 new InventoryReportAction(RepositoryFactory.GetRepository<OfferRepository>()),

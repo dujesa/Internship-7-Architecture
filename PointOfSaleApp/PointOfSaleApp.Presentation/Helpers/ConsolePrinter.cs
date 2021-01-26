@@ -59,8 +59,13 @@ namespace PointOfSaleApp.Presentation.Helpers
         {
             foreach (var subscription in subscriptions)
                 DisplaySubscription(subscription);
-        }        
-        
+        }
+
+        internal static void DisplayBill(Bill bill)
+        {
+            throw new NotImplementedException();
+        }
+
         public static void PrintServices(ICollection<Service> services)
         {
             foreach (var service in services)

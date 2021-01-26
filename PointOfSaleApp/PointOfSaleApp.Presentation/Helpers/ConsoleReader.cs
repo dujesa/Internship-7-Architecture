@@ -25,6 +25,33 @@ namespace PointOfSaleApp.Presentation.Helpers
             return !isNumber;
         }
 
+        public static (DateTime? StartTime, DateTime? EndTime) ProvideDatePeriod()
+        {
+            Console.WriteLine("Please input start time:");
+            var isStartRead = IsDateTimeRead(out var startTime);
+
+            Console.WriteLine("Please input end time:");
+            var isEndRead = IsDateTimeRead(out var endTime);
+
+            if (isStartRead && isEndRead)
+                return (startTime, endTime);
+
+            if (isStartRead)
+                return (startTime, null);
+
+            if (isEndRead)
+                return (null, endTime);
+
+            return (null, null);
+        }
+
+        public static bool IsDateTimeRead(out DateTime dateTime)
+        {
+            var isDateTime = DateTime.TryParse(Console.ReadLine(), out dateTime);
+
+            return isDateTime;
+        }
+
         public static bool IsNumberRead(out int number)
         {
             var isNumber = int.TryParse(Console.ReadLine(), out number);

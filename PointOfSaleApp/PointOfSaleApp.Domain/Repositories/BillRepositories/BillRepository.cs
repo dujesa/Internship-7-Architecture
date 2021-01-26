@@ -40,20 +40,6 @@ namespace PointOfSaleApp.Domain.Repositories.BillRepositories
                 .Sum();
         }
 
-        /*if (bill.Price < 0)
-return (ResponseResultType.ValidationError, "Error related to bill price, cannot be price lower than zero!");
-*/
-        /*if (bill.BillItems.Count == 0)
-            return (ResponseResultType.ValidationError, "Error, bill must contain at least one item on it to be issued!");
-        */
-        /*public ICollection<Offer> GetIssuedInside()
-        {
-            return DbContext.Offers
-                .Where(o => o.AvailableQuantity <= 0)
-                .ToList();
-        }*/
-
-
         public Bill GetById(int id)
         {
             return DbContext.Bills.Find(id);
@@ -70,6 +56,27 @@ return (ResponseResultType.ValidationError, "Error related to bill price, cannot
             cancelingBill.BillType = BillType.Undisclosed;
 
             return SaveChanges();
+        }
+
+        public ICollection<Bill> GetAllIssuedInsideByOfferCategoryIds(DateTime? startTime, DateTime? endTime, ICollection<int> categoryIds)
+        {
+            var items = DbContext.BillItems
+                .Include(bi => bi.Bill)
+                .Include(bi => bi.Offer)
+                .ThenInclude(o => o.OfferCategories)
+                .ToList();
+
+            if (startTime is DateTime)
+                items = items.Where(bi => bi.Bill.IssuedAt >= startTime).ToList();
+
+            if (endTime is DateTime)
+                items = items.Where(bi => bi.Bill.IssuedAt <= endTime).ToList();
+
+            if (categoryIds.Count > 0)
+                items = items.Where(i => i.Offer.OfferCategories.Any(cat => categoryIds.Any(y => y == cat.Id))).ToList();
+
+            return items
+                .Select(i => i.Bill).Distinct().ToList();
         }
 
         public ResponseResultType Edit(Bill bill, int id)
